@@ -3,6 +3,10 @@ import sqlite3
 
 class Database(object):
 
+    """
+    Creating a sqlite3 database for storing players, counting rounds and wins
+    """
+
 
     def __init__(self):
 
@@ -43,6 +47,10 @@ class Database(object):
                          (name, gamesplayed, wins))
         rows = self.cur.fetchall()
         return rows
+
+    def removePlayer(self, name):
+
+        self.cur.execute("DELETE FROM book WHERE id=?", name)
 
     def __del__(self):
         self.conn.close()
