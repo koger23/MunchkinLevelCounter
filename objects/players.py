@@ -3,33 +3,43 @@ from utils import DB_utils
 
 class Player(object):
 
-    def __init__(self):
+    def __init__(self, name=None):
 
         self.name = None
+        if self.name:
+            self.name = name
         self.rounds = 0
         self.wins = 0
-        self.currentLevel = 0
-        self.currentCloth = 0
+        self.currentLevel = 1
+        self.currentBonus = 0
 
     def setName(self, name):
 
         self.name = name
 
+    def setRounds(self, rounds):
+
+        self.rounds = rounds
+
+    def setWins(self, wins):
+
+        self.wins = wins
+
     def increaseLevel(self):
 
         self.currentLevel += 1
 
-    def increaseCloth(self):
+    def increaseBonus(self):
 
-        self.currentCloth += 1
+        self.currentBonus += 1
 
     def decreaseLevel(self):
 
         self.currentLevel -= 1
 
-    def decreaseCloth(self):
+    def decreaseBonus(self):
 
-        self.currentCloth -= 1
+        self.currentBonus -= 1
 
     def increaseWins(self):
 
@@ -41,5 +51,5 @@ class Player(object):
 
     def die(self):
 
-        self.currentCloth = 0
+        self.currentBonus = 0
         self.currentLevel = 1
