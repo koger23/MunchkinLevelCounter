@@ -1,0 +1,42 @@
+QWidget {
+    background-color:  #fad7a0 ;
+    color: #cccccc
+}
+
+QLabel {
+    background-color:transparent;
+    font: 10pt "Helvetica";
+    color: #cccccc
+}
+
+QScrollBar::handle:vertical {
+    border: 0px solid #333;
+    background:#222;
+}
+
+QListWidget {
+    background-color:transparent;
+    border: 0px;
+}
+
+QPushButton {
+    background-color: #3e2723;
+    border: 0px;
+    padding: 3px 15px 4px 15px;
+    font: bold 14px;
+    color:#cccccc
+}
+
+QPushButton:pressed {
+    background-color: rgba(253, 0, 208, 100%);
+    padding: 4px 14px 3px 16px;
+}
+
+QPushButton:hover {
+    background-color: rgba( 121, 85, 72, 75%);
+}
+
+QPushButton:checked{
+    background-color: rgba(0, 0, 0, 80%);
+    color: #222;
+}
