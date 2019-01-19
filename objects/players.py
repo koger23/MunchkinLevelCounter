@@ -3,15 +3,16 @@ from utils import DB_utils
 
 class Player(object):
 
-    def __init__(self, name=None):
+    def __init__(self, name):
 
-        self.name = None
-        if self.name:
-            self.name = name
-        self.rounds = 0
+        self.name = name
+        self.games = 0
         self.wins = 0
         self.currentLevel = 1
         self.currentBonus = 0
+        self.gender = "male"
+        self.avatar = r"Y:\Dropbox\Python\MunchkinLevelCounter\images\munchkin_" + self.gender + ".png"
+        self.inGame = 0
 
     def setName(self, name):
 
@@ -19,11 +20,25 @@ class Player(object):
 
     def setRounds(self, rounds):
 
-        self.rounds = rounds
+        self.games = rounds
 
     def setWins(self, wins):
 
         self.wins = wins
+
+    def setGender(self, gender):
+
+        if gender == "male" or gender == "female" or gender == "neutral":
+            self.gender = gender
+        else:
+            self.gender = "male"
+
+    def setAvatar(self, path=None):
+
+        if path:
+            self.avatar = path
+        else:
+            self.avatar = r"Y:\Dropbox\Python\MunchkinLevelCounter\images\munchkin_" + self.gender + ".png"
 
     def increaseLevel(self):
 
@@ -37,9 +52,15 @@ class Player(object):
 
         self.currentLevel -= 1
 
+        if self.currentLevel < 1:
+            self.currentLevel = 1
+
     def decreaseBonus(self):
 
         self.currentBonus -= 1
+        if self.currentBonus < 0:
+            self.currentBonus = 0
+
 
     def increaseWins(self):
 
@@ -47,7 +68,7 @@ class Player(object):
 
     def increaseRounds(self):
 
-        self.rounds += 1
+        self.games += 1
 
     def die(self):
 

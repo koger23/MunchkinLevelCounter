@@ -4,7 +4,7 @@ import sqlite3
 class Database(object):
 
     """
-    Creating a sqlite3 database for storing players, counting rounds and wins
+    Creating a sqlite3 database for storing players, counting games and wins
     """
 
 
@@ -16,15 +16,16 @@ class Database(object):
 
         self.cur.execute("CREATE TABLE IF NOT EXISTS players (id INTEGER PRIMARY KEY, "
                          "name text, "
+                         "gender text, "
                          "gamesplayed integer, "
                          "wins integer)"
                          )
 
         self.conn.commit()
 
-    def addPlayer(self, name, gamesplayed, wins):
+    def addPlayer(self, name, gender, gamesplayed, wins):
 
-        self.cur.execute("INSERT INTO players VALUES (NULL, ?, ?, ?)", (name, gamesplayed, wins))
+        self.cur.execute("INSERT INTO players VALUES (NULL, ?, ?, ?, ?)", (name, gender, gamesplayed, wins))
 
         self.conn.commit()
 
@@ -50,7 +51,23 @@ class Database(object):
 
     def removePlayer(self, name):
 
-        self.cur.execute("DELETE FROM book WHERE id=?", name)
+        self.cur.execute("DELETE FROM book WHERE name=?", (name,))
+
+    def getPlayerByName(self, name):
+
+        self.cur.execute("SELECT * FROM players WHERE name=?", (name,))
+
+        rows = self.cur.fetchall()
+
+        return rows
+
+    def getPlayerNames(self):
+
+        self.cur.execute("SELECT name FROM players")
+
+        names = self.cur.fetchall()
+
+        return names
 
     def __del__(self):
         self.conn.close()
@@ -60,9 +77,11 @@ if __name__ == '__main__':
 
     dbo = Database()
     #
-    # dbo.addPlayer("Szandi", 9, 3)
-    # dbo.addPlayer("Bence", 9, 2)
-    # dbo.addPlayer("Máté", 9, 2)
+    # dbo.addPlayer("Szandi", "female", 9, 3)
+    # dbo.addPlayer("Bence", "male", 9, 2)
+    # dbo.addPlayer("Máté", "male", 9, 2)
+    # dbo.addPlayer("Gergely", "male", 9, 2)
 
-    for i in dbo.view():
-        print(i)
+    players = dbo.getPlayerByName("Máté")
+
+    print(players)
