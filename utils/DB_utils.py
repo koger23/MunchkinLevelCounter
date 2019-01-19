@@ -23,9 +23,10 @@ class Database(object):
 
         self.conn.commit()
 
+
     def addPlayer(self, name, gender, gamesplayed, wins):
 
-        self.cur.execute("INSERT INTO players VALUES (NULL, ?, ?, ?, ?)", (name, gender, gamesplayed, wins))
+        self.cur.execute("INSERT INTO players VALUES (NULL, ?, ?, ?, ?)", (name, gender, gamesplayed, wins, ))
 
         self.conn.commit()
 
@@ -49,9 +50,10 @@ class Database(object):
         rows = self.cur.fetchall()
         return rows
 
-    def removePlayer(self, name):
+    def removePlayer(self, name, rounds, wins):
 
-        self.cur.execute("DELETE FROM book WHERE name=?", (name,))
+        self.cur.execute("DELETE FROM players WHERE name=? AND gamesplayed=? AND wins=?", (name, rounds, wins,))
+        self.conn.commit()
 
     def getPlayerByName(self, name):
 
@@ -81,6 +83,7 @@ if __name__ == '__main__':
     # dbo.addPlayer("Bence", "male", 9, 2)
     # dbo.addPlayer("Máté", "male", 9, 2)
     # dbo.addPlayer("Gergely", "male", 9, 2)
+    dbo.addPlayer("Tomi", "neutral", 1, 1)
 
     players = dbo.getPlayerByName("Máté")
 

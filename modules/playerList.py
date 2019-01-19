@@ -23,12 +23,36 @@ class PlayerList(QWidget):
 
         addPlayerLayout = QHBoxLayout()
         mainLayout.addLayout(addPlayerLayout)
+
         btnAddPlayer = munchkinButton.MunchkinButton("Add Player")
         addPlayerLayout.addWidget(btnAddPlayer)
+        btnAddPlayer.clicked.connect(self.addPlayer)
+        btnAddPlayer.setMinimumHeight(50)
+
+        btnEditPlayer = munchkinButton.MunchkinButton("Edit Player")
+        addPlayerLayout.addWidget(btnEditPlayer)
+        btnEditPlayer.setMinimumHeight(50)
+
+        btnRemovePlayer = munchkinButton.MunchkinButton("Remove Player")
+        addPlayerLayout.addWidget(btnRemovePlayer)
+        btnRemovePlayer.clicked.connect(self.removePlayer)
+        btnRemovePlayer.setMinimumHeight(50)
 
         self.browser = PlayerBrowser()
         mainLayout.addWidget(self.browser)
 
+        self.browser.refreshView()
+
+    def addPlayer(self):
+
+        dbu.Database().addPlayer("Tomi", "neutral", 1, 1)
+        self.browser.refreshView()
+
+    def removePlayer(self):
+
+        dbu.Database().removePlayer(self.browser.getCurrentPlayer().name,
+                                    self.browser.getCurrentPlayer().games,
+                                    self.browser.getCurrentPlayer().wins)
         self.browser.refreshView()
 
 class PlayerBrowser(QListWidget):
@@ -39,13 +63,16 @@ class PlayerBrowser(QListWidget):
         self.setMovement(QListWidget.Static)
         self.setResizeMode(QListWidget.Adjust)
         self.setSelectionMode(QListWidget.ExtendedSelection)
-        self.setSpacing(1)
+        self.setSpacing(5)
 
         self.setItemDelegate(MyDelegate())
 
         self.currentPlayer = None
 
         self.itemClicked.connect(self.setCurrentPlayer)
+
+    def getCurrentPlayer(self):
+        return self.currentPlayer
 
 
 
@@ -133,6 +160,7 @@ class MyDelegate(QStyledItemDelegate):
             painter.setBrush(self.bgColor)
 
         # Background
+        painter.setPen(Qt.NoPen)
         painter.drawRect(rect)
 
         # avatar

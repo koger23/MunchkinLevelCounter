@@ -13,6 +13,11 @@ class Player(object):
         self.gender = "male"
         self.avatar = r"Y:\Dropbox\Python\MunchkinLevelCounter\images\munchkin_" + self.gender + ".png"
         self.inGame = 0
+        self.id = None
+
+    def setId(self):
+
+        self.id = id
 
     def setName(self, name):
 

@@ -3,9 +3,9 @@
 
 import sys
 
-from PySide2.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, QPushButton, QMessageBox
+from PySide2.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QPushButton, QMessageBox
 from PySide2.QtGui import QFontDatabase
-from modules import simpleQuit, playerList, mainMenu
+from modules import playerList, mainMenu
 
 class LevelCounter(QMainWindow):
 
@@ -13,6 +13,7 @@ class LevelCounter(QMainWindow):
         super(LevelCounter, self).__init__()
         self.setWindowTitle("Level counter v0.1")
         self.resize(600, 700)
+        self.setMinimumSize(600, 700)
         self.setMaximumSize(600, 700)
 
         self.centralWidget = QWidget()
@@ -23,6 +24,7 @@ class LevelCounter(QMainWindow):
         self.mainMenu = mainMenu.MainMenu()
         mainLayout.addWidget(self.mainMenu)
         self.mainMenu.btnPlayers.clicked.connect(self.showPlayerList)
+        self.mainMenu.btnNewGame.clicked.connect(self.newGame)
         self.mainMenu.setVisible(True)
 
         # Player List
@@ -30,26 +32,64 @@ class LevelCounter(QMainWindow):
         mainLayout.addWidget(self.playerList)
         self.playerList.hide()
 
-        # Navigation button
+        # Navigation buttons
         self.btnBack = QPushButton("Back")
         mainLayout.addWidget(self.btnBack)
         self.btnBack.clicked.connect(self.backToMainMenu)
+        self.btnBack.setMinimumHeight(50)
         self.btnBack.hide()
+
+        self.btnStartGame = QPushButton("Start Game")
+        mainLayout.addWidget(self.btnStartGame)
+        self.btnStartGame.clicked.connect(self.startGame)
+        self.btnStartGame.setMinimumHeight(50)
+        self.btnStartGame.hide()
 
 
         self.applyStyle()
 
     def showPlayerList(self):
 
-        print("TIME")
         self.mainMenu.hide()
         self.btnBack.show()
         self.playerList.show()
+        self.playerList.browser.refreshView()
 
     def backToMainMenu(self):
         self.mainMenu.show()
         self.btnBack.hide()
         self.playerList.hide()
+        self.btnStartGame.hide()
+
+    def newGame(self):
+
+        self.mainMenu.hide()
+        self.btnBack.show()
+        self.btnStartGame.show()
+        self.playerList.show()
+        self.playerList.browser.refreshView()
+
+    def startGame(self):
+
+        # Get selected players for new game
+        selectedItems = self.playerList.browser.selectedItems()
+
+        if len(selectedItems) > 1:
+
+            for i in selectedItems:
+                    i.playerObject.inGame = 1 # select for new game
+
+            # Get all item in list
+            items = []
+            for index in range(self.playerList.browser.count()):
+                items.append(self.playerList.browser.item(index))
+
+            # hide items which are not selected for new game
+            for item in items:
+                if item.playerObject.inGame == 0:
+                    self.playerList.browser.takeItem(self.playerList.browser.row(item))
+
+            print("STARTING GAME...")
 
 
     def applyStyle(self):

@@ -19,9 +19,9 @@ class MainMenu(QWidget):
         mainLayout.addWidget(lblLogo)
 
         # Add New Game widget
-        btnNewGame = QPushButton("NEW GAME")
-        btnNewGame.setMinimumHeight(50)
-        mainLayout.addWidget(btnNewGame)
+        self.btnNewGame = QPushButton("NEW GAME")
+        self.btnNewGame.setMinimumHeight(50)
+        mainLayout.addWidget(self.btnNewGame)
 
         # Add Load
         btnLoadGame = QPushButton("LOAD GAME")
