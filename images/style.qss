@@ -1,17 +1,27 @@
 QWidget {
     background-color:  #fad7a0 ;
-    color: #cccccc
+    color: #000000
 }
 
 QLabel {
     background-color:transparent;
     font: 10pt "Helvetica";
-    color: #cccccc
+    color: #000000
 }
 
 QScrollBar::handle:vertical {
     border: 0px solid #333;
     background:#222;
+}
+
+#addPlayerLabels{
+    font-weight:600;
+    font-size:14pt
+}
+
+#addPlayerRadioBtn{
+    font-weight:600;
+    font-size:14pt
 }
 
 QListWidget {

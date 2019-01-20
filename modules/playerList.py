@@ -5,17 +5,17 @@ from PySide2.QtCore import QSize, QRect, Qt
 
 import sys
 from utils import DB_utils as dbu
-from modules import munchkinButton
+from modules import addPlayer
 from objects import players as ply
 
 class PlayerList(QWidget):
 
-    def __init__(self, parent=None):
+    def __init__(self, mainWindow, parent=None):
 
         super(PlayerList, self).__init__(parent)
-
-        self.resize(600, 700)
-        self.setMaximumSize(600, 700)
+        self.mainWindow = mainWindow
+        # self.resize(600, 700)
+        # self.setMaximumSize(600, 700)
 
         mainLayout = QVBoxLayout()
         mainLayout.setContentsMargins(0, 0, 0, 0)
@@ -24,28 +24,54 @@ class PlayerList(QWidget):
         addPlayerLayout = QHBoxLayout()
         mainLayout.addLayout(addPlayerLayout)
 
-        btnAddPlayer = munchkinButton.MunchkinButton("Add Player")
-        addPlayerLayout.addWidget(btnAddPlayer)
-        btnAddPlayer.clicked.connect(self.addPlayer)
-        btnAddPlayer.setMinimumHeight(50)
+        self.btnAddPlayer = QPushButton("Add Player")
+        addPlayerLayout.addWidget(self.btnAddPlayer)
+        self.btnAddPlayer.clicked.connect(self.addPlayer)
+        self.btnAddPlayer.setMinimumHeight(50)
 
-        btnEditPlayer = munchkinButton.MunchkinButton("Edit Player")
-        addPlayerLayout.addWidget(btnEditPlayer)
-        btnEditPlayer.setMinimumHeight(50)
+        self.btnEditPlayer = QPushButton("Edit Player")
+        addPlayerLayout.addWidget(self.btnEditPlayer)
+        self.btnEditPlayer.setMinimumHeight(50)
+        self.btnEditPlayer.clicked.connect(self.editPlayer)
 
-        btnRemovePlayer = munchkinButton.MunchkinButton("Remove Player")
-        addPlayerLayout.addWidget(btnRemovePlayer)
-        btnRemovePlayer.clicked.connect(self.removePlayer)
-        btnRemovePlayer.setMinimumHeight(50)
+        self.btnRemovePlayer = QPushButton("Remove Player")
+        addPlayerLayout.addWidget(self.btnRemovePlayer)
+        self.btnRemovePlayer.clicked.connect(self.removePlayer)
+        self.btnRemovePlayer.setMinimumHeight(50)
 
         self.browser = PlayerBrowser()
         mainLayout.addWidget(self.browser)
+
+        self.addPlayerWidget = addPlayer.AddPlayer(self)
+        mainLayout.addWidget(self.addPlayerWidget)
+        self.addPlayerWidget.hide()
+
+        self.editPlayerWidget = addPlayer.EditPlayer(self)
+        mainLayout.addWidget(self.editPlayerWidget)
+        self.editPlayerWidget.hide()
 
         self.browser.refreshView()
 
     def addPlayer(self):
 
-        dbu.Database().addPlayer("Tomi", "neutral", 1, 1)
+        self.editPlayerWidget.clearAll()
+        self.editPlayerWidget.show()
+        self.btnAddPlayer.hide()
+        self.btnEditPlayer.hide()
+        self.browser.hide()
+        self.btnRemovePlayer.hide()
+
+        self.browser.refreshView()
+
+    def editPlayer(self):
+
+        self.editPlayerWidget.getInputs()
+        self.editPlayerWidget.show()
+        self.btnAddPlayer.hide()
+        self.btnEditPlayer.hide()
+        self.browser.hide()
+        self.btnRemovePlayer.hide()
+
         self.browser.refreshView()
 
     def removePlayer(self):
@@ -72,14 +98,12 @@ class PlayerBrowser(QListWidget):
         self.itemClicked.connect(self.setCurrentPlayer)
 
     def getCurrentPlayer(self):
+
         return self.currentPlayer
-
-
 
     def setCurrentPlayer(self):
 
         self.currentPlayer = self.currentItem().playerObject
-        print(self.currentPlayer.name)
 
 
     def refreshView(self):

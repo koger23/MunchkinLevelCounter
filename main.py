@@ -5,16 +5,16 @@ import sys
 
 from PySide2.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QPushButton, QMessageBox
 from PySide2.QtGui import QFontDatabase
-from modules import playerList, mainMenu
+from modules import playerList, mainMenu, quitWidget
 
 class LevelCounter(QMainWindow):
 
     def __init__(self):
         super(LevelCounter, self).__init__()
         self.setWindowTitle("Level counter v0.1")
-        self.resize(600, 700)
-        self.setMinimumSize(600, 700)
-        self.setMaximumSize(600, 700)
+        self.resize(600, 800)
+        self.setMinimumSize(600, 800)
+        self.setMaximumSize(600, 800)
 
         self.centralWidget = QWidget()
         mainLayout = QVBoxLayout(self.centralWidget)
@@ -28,7 +28,7 @@ class LevelCounter(QMainWindow):
         self.mainMenu.setVisible(True)
 
         # Player List
-        self.playerList = playerList.PlayerList()
+        self.playerList = playerList.PlayerList(self)
         mainLayout.addWidget(self.playerList)
         self.playerList.hide()
 
@@ -45,6 +45,11 @@ class LevelCounter(QMainWindow):
         self.btnStartGame.setMinimumHeight(50)
         self.btnStartGame.hide()
 
+        self.btnQuit = QPushButton("Leave Game")
+        mainLayout.addWidget(self.btnQuit)
+        self.btnQuit.setMinimumHeight(50)
+        self.btnQuit.clicked.connect(self.leaveGame)
+        self.btnQuit.hide()
 
         self.applyStyle()
 
@@ -56,10 +61,19 @@ class LevelCounter(QMainWindow):
         self.playerList.browser.refreshView()
 
     def backToMainMenu(self):
+
         self.mainMenu.show()
         self.btnBack.hide()
         self.playerList.hide()
         self.btnStartGame.hide()
+
+        if self.playerList.addPlayerWidget.isVisible():
+            self.playerList.addPlayerWidget.hide()
+
+        self.resize(600, 700)
+        self.setMinimumSize(600, 800)
+        self.setMaximumSize(600, 800)
+
 
     def newGame(self):
 
@@ -89,8 +103,21 @@ class LevelCounter(QMainWindow):
                 if item.playerObject.inGame == 0:
                     self.playerList.browser.takeItem(self.playerList.browser.row(item))
 
-            print("STARTING GAME...")
+            self.setMaximumSize(750, 750)
+            self.setMinimumSize(750, 750)
+            self.resize(750, 1024)
 
+            self.playerList.btnRemovePlayer.hide()
+            self.playerList.btnEditPlayer.hide()
+            self.playerList.btnAddPlayer.hide()
+
+            self.btnStartGame.hide()
+            self.btnBack.hide()
+            self.btnQuit.show()
+
+    def leaveGame(self):
+
+        quitWidget.QuitWidget(self).quitMsg()
 
     def applyStyle(self):
 

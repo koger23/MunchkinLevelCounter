@@ -29,6 +29,9 @@ class Database(object):
         self.cur.execute("INSERT INTO players VALUES (NULL, ?, ?, ?, ?)", (name, gender, gamesplayed, wins, ))
 
         self.conn.commit()
+        print("Player added")
+
+        print(self.view())
 
     def view(self):
 
@@ -53,11 +56,20 @@ class Database(object):
     def removePlayer(self, name, rounds, wins):
 
         self.cur.execute("DELETE FROM players WHERE name=? AND gamesplayed=? AND wins=?", (name, rounds, wins,))
+
         self.conn.commit()
 
     def getPlayerByName(self, name):
 
         self.cur.execute("SELECT * FROM players WHERE name=?", (name,))
+
+        rows = self.cur.fetchall()
+
+        return rows
+
+    def getPlayerId(self, name, rounds, wins):
+
+        self.cur.execute("SELECT id FROM players WHERE name=? AND gamesplayed=? AND wins=?", (name, rounds, wins,))
 
         rows = self.cur.fetchall()
 

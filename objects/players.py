@@ -1,4 +1,4 @@
-from utils import DB_utils
+from utils import DB_utils as dbu
 
 
 class Player(object):
@@ -14,10 +14,13 @@ class Player(object):
         self.avatar = r"Y:\Dropbox\Python\MunchkinLevelCounter\images\munchkin_" + self.gender + ".png"
         self.inGame = 0
         self.id = None
+        self.isAlive = 1
+
+        self.setId()
 
     def setId(self):
 
-        self.id = id
+        self.id = dbu.Database().getPlayerId(self.name, self.games, self.wins)
 
     def setName(self, name):
 
@@ -79,3 +82,5 @@ class Player(object):
 
         self.currentBonus = 0
         self.currentLevel = 1
+        self.isAlive = 0
+        self.avatar = r"Y:\Dropbox\Python\MunchkinLevelCounter\images\munchkin\dead.png"

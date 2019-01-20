@@ -1,13 +1,12 @@
-from PySide2.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, QPushButton, QMessageBox
-from PySide2.QtGui import QFontDatabase
-from modules import simpleQuit, playerList
+from PySide2.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QPushButton, QMessageBox
+from modules import simpleQuit
 
 class MainMenu(QWidget):
 
     def __init__(self, parent=None):
         super(MainMenu, self).__init__(parent)
-        self.resize(600, 700)
-        self.setMaximumSize(600, 700)
+        self.resize(600, 800)
+        self.setMaximumSize(600, 800)
 
         mainLayout = QVBoxLayout()
         mainLayout.setContentsMargins(0, 0, 0, 0)
@@ -65,7 +64,9 @@ class MainMenu(QWidget):
 
 if __name__ == '__main__':
 
+    import sys
+
     app = QApplication(sys.argv)
-    window = PlayerList()
+    window = MainMenu()
     window.show()
     app.exec_()

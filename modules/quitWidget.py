@@ -3,8 +3,9 @@ from PySide2.QtWidgets import QWidget, QPushButton, QVBoxLayout, QMessageBox
 class QuitWidget(QWidget):
 
 
-    def __init__(self):
+    def __init__(self, mainWindow):
         super(QuitWidget, self).__init__()
+        self.mainWindow = mainWindow
 
         centralWidget = QWidget()
         mainLayout = QVBoxLayout(centralWidget)
@@ -25,11 +26,15 @@ class QuitWidget(QWidget):
         ret = msgBox.exec_()
 
         if ret == QMessageBox.Save:
-            # Save was clicked
+            # Save was clicked - save game dialog
             pass
         elif ret == QMessageBox.Discard:
-            # Don't save was clicked
-            quit()
+            # Don't save was clicked - exitting into main menu
+            self.mainWindow.backToMainMenu()
+            self.mainWindow.btnQuit.hide()
+            self.mainWindow.playerList.btnRemovePlayer.show()
+            self.mainWindow.playerList.btnEditPlayer.show()
+            self.mainWindow.playerList.btnAddPlayer.show()
         elif ret == QMessageBox.Cancel:
             # cancel was clicked
             return
