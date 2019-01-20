@@ -19,6 +19,10 @@ QScrollBar::handle:vertical {
     font-size:14pt
 }
 
+#addPlayer_txtField{
+    font-size:14pt
+}
+
 #addPlayerRadioBtn{
     font-weight:600;
     font-size:14pt

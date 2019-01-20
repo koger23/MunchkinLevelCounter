@@ -41,15 +41,15 @@ class Database(object):
 
         return rows
 
-    def update(self, id, name, gamesplayed, wins):
+    def update(self, id, name, gender, gamesplayed, wins):
 
-        self.cur.execute("UPDATE players SET name=?, gamesplayed=?, wins=? WHERE id=?", (name, gamesplayed, wins, id))
+        self.cur.execute("UPDATE players SET name=?, gender=?, gamesplayed=?, wins=? WHERE id=?", (name, gender, gamesplayed, wins, id,))
 
         self.conn.commit()
 
-    def search(self, name="", gamesplayed="", wins=""):
-        self.cur.execute("SELECT * FROM players WHERE name=? OR gamesplayed=? OR wins=?",
-                         (name, gamesplayed, wins))
+    def search(self, name="", gamesplayed="", wins="", id=""):
+        self.cur.execute("SELECT * FROM players WHERE name=? OR gamesplayed=? OR wins=? OR id=?",
+                         (name, gamesplayed, wins, id))
         rows = self.cur.fetchall()
         return rows
 

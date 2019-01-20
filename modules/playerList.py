@@ -54,12 +54,16 @@ class PlayerList(QWidget):
 
     def addPlayer(self):
 
-        self.editPlayerWidget.clearAll()
-        self.editPlayerWidget.show()
+        self.addPlayerWidget.clearAll()
+        self.addPlayerWidget.show()
         self.btnAddPlayer.hide()
         self.btnEditPlayer.hide()
         self.browser.hide()
         self.btnRemovePlayer.hide()
+        self.mainWindow.btnStartGame.hide()
+        self.mainWindow.btnBack.hide()
+
+        self.setMaximumSize(600, 250)
 
         self.browser.refreshView()
 
@@ -71,6 +75,10 @@ class PlayerList(QWidget):
         self.btnEditPlayer.hide()
         self.browser.hide()
         self.btnRemovePlayer.hide()
+        self.mainWindow.btnStartGame.hide()
+        self.mainWindow.btnBack.hide()
+
+        self.setMaximumSize(600, 250)
 
         self.browser.refreshView()
 

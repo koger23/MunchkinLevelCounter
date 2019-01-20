@@ -36,8 +36,9 @@ class AddPlayer(QWidget):
 
         # Text fields
         self.txtPlayerName = QTextEdit()
+        self.txtPlayerName.setObjectName("addPlayer_txtField")
         baseLayout.addWidget(self.txtPlayerName, 0, 1, 1, 2)
-        self.txtPlayerName.setFixedHeight(27)
+        self.txtPlayerName.setFixedHeight(35)
 
         self.rbtnMale = QRadioButton("Male")
         self.rbtnMale.setObjectName("addPlayerRadioBtn")
@@ -49,12 +50,14 @@ class AddPlayer(QWidget):
         baseLayout.addWidget(self.rbtnFemale, 1, 2)
 
         self.txtPlayerGames = QTextEdit("0")
+        self.txtPlayerGames.setObjectName("addPlayer_txtField")
         baseLayout.addWidget(self.txtPlayerGames, 2, 1, 1, 2)
-        self.txtPlayerGames.setFixedHeight(27)
+        self.txtPlayerGames.setFixedHeight(35)
 
         self.txtPlayerWins = QTextEdit("0")
+        self.txtPlayerWins.setObjectName("addPlayer_txtField")
         baseLayout.addWidget(self.txtPlayerWins, 3, 1, 1, 2)
-        self.txtPlayerWins.setFixedHeight(27)
+        self.txtPlayerWins.setFixedHeight(35)
 
         # Buttons
         btnSavePlayer = QPushButton("Save")
@@ -79,6 +82,10 @@ class AddPlayer(QWidget):
         self.playerList.btnEditPlayer.show()
         self.playerList.browser.show()
         self.playerList.btnRemovePlayer.show()
+        self.playerList.mainWindow.btnBack.show()
+        self.playerList.mainWindow.btnStartGame.show()
+
+        self.playerList.setMaximumSize(600, 700)
 
     def savePlayer(self):
 
@@ -157,6 +164,8 @@ class AddPlayer(QWidget):
         self.playerList.btnEditPlayer.show()
         self.playerList.browser.show()
         self.playerList.btnRemovePlayer.show()
+        self.playerList.mainWindow.btnBack.show()
+        self.playerList.mainWindow.btnStartGame.show()
         self.playerList.browser.refreshView()
 
 
@@ -168,11 +177,17 @@ class EditPlayer(AddPlayer):
 
     def getInputs(self):
 
-        self.txtPlayerName.setText(self.playerList.browser.currentItem().playerObject.name)
-        self.txtPlayerWins.setText(str(self.playerList.browser.currentItem().playerObject.wins))
-        self.txtPlayerGames.setText(str(self.playerList.browser.currentItem().playerObject.games))
+        # Get selected object name, wins, games and gender
+        self.name = self.playerList.browser.currentItem().playerObject.name
+        self.wins = str(self.playerList.browser.currentItem().playerObject.wins)
+        self.games = str(self.playerList.browser.currentItem().playerObject.games)
+        self.gender = self.playerList.browser.currentItem().playerObject.gender
 
-        if self.playerList.browser.currentItem().playerObject.gender == "male":
+        self.txtPlayerName.setText(self.name)
+        self.txtPlayerWins.setText(self.wins)
+        self.txtPlayerGames.setText(self.games)
+
+        if self.gender == "male":
             self.rbtnMale.setChecked(True)
             self.rbtnFemale.setChecked(False)
 
@@ -247,14 +262,15 @@ class EditPlayer(AddPlayer):
             msg3.setText("Number of won games is not given.")
             msg3.exec_()
             return
-        # TODO: make update function. Now raise AttributeError: 'NoneType' object has no attribute 'playerObject'
-        # dbu.Database().addPlayer(name, gender, gamesPlayed, wins)
-        id = dbu.Database().getPlayerId(self.playerList.browser.currentItem().playerObject.name,
-                                        self.playerList.browser.currentItem().playerObject.games,
-                                        self.playerList.browser.currentItem().playerObject.wins)
-        dbu.Database().update(id, self.playerList.browser.currentItem().playerObject.name,
-                              self.playerList.browser.currentItem().playerObject.games,
-                              self.playerList.browser.currentItem().playerObject.wins)
+
+        id = dbu.Database().getPlayerId(self.name,
+                                        self.games,
+                                        self.wins)[0][0]
+
+        dbu.Database().update(id, self.txtPlayerName.toPlainText(),
+                              str(gender),
+                              int(self.txtPlayerGames.toPlainText()),
+                              int(self.txtPlayerWins.toPlainText()))
 
         self.hide()
 
@@ -262,6 +278,11 @@ class EditPlayer(AddPlayer):
         self.playerList.btnEditPlayer.show()
         self.playerList.browser.show()
         self.playerList.btnRemovePlayer.show()
+        self.playerList.mainWindow.btnBack.show()
+        self.playerList.mainWindow.btnStartGame.show()
+
+        self.playerList.setMaximumSize(600, 700)
+
         self.playerList.browser.refreshView()
 
 

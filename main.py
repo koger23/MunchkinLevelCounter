@@ -74,7 +74,6 @@ class LevelCounter(QMainWindow):
         self.setMinimumSize(600, 800)
         self.setMaximumSize(600, 800)
 
-
     def newGame(self):
 
         self.mainMenu.hide()
