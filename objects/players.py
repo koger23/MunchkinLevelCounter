@@ -11,10 +11,16 @@ class Player(object):
         self.currentLevel = 1
         self.currentBonus = 0
         self.gender = "male"
-        self.avatar = r"Y:\Dropbox\Python\MunchkinLevelCounter\images\munchkin_" + self.gender + ".png"
+        self.avatar = r"\images\munchkin_" + self.gender + ".png"
         self.inGame = 0
         self.id = None
         self.isAlive = 1
+        self.rounds = 1
+
+        if self.isAlive == 0:
+            self.avatar = r"\images\dead.png"
+        else:
+            r"\images\munchkin_" + self.gender + ".png"
 
         self.setId()
 
@@ -26,7 +32,7 @@ class Player(object):
 
         self.name = name
 
-    def setRounds(self, rounds):
+    def setGames(self, rounds):
 
         self.games = rounds
 
@@ -47,6 +53,10 @@ class Player(object):
             self.avatar = path
         else:
             self.avatar = r"Y:\Dropbox\Python\MunchkinLevelCounter\images\munchkin_" + self.gender + ".png"
+
+    def increaseRounds(self):
+
+        self.rounds += 1
 
     def increaseLevel(self):
 
@@ -73,10 +83,6 @@ class Player(object):
     def increaseWins(self):
 
         self.wins += 1
-
-    def increaseRounds(self):
-
-        self.games += 1
 
     def die(self):
 

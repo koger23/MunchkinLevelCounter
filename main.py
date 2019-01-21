@@ -6,6 +6,7 @@ import sys
 from PySide2.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QPushButton, QHBoxLayout
 from PySide2.QtGui import QFontDatabase
 from modules import playerList, mainMenu, quitWidget, gameWidget
+from objects import game
 
 class LevelCounter(QMainWindow):
 
@@ -35,14 +36,22 @@ class LevelCounter(QMainWindow):
         mainLayout.addWidget(self.playerList)
         self.playerList.hide()
 
+        # Game object to count rounds
+        self.game = game.Game()
+
         # Game Widget
-        self.gameWidget = gameWidget.GameWidget()
+        self.gameWidget = gameWidget.GameWidget(self.game)
         baseLayout.addWidget(self.gameWidget)
         self.gameWidget.setVisible(False)
-        self.gameWidget.btnBonusInc.clicked.connect(self.playerList.increasePlayerBonus)
-        self.gameWidget.btnBonusDec.clicked.connect(self.playerList.decreasePlayerBonus)
-        self.gameWidget.btnLevelInc.clicked.connect(self.playerList.increasePlayerLevel)
-        self.gameWidget.btnLevelDec.clicked.connect(self.playerList.decreasePlayerLevel)
+
+
+        # Get on signals for buttons in Game
+        self.gameWidget.bonusCounterWidget.btnBonusInc.clicked.connect(self.playerList.increasePlayerBonus)
+        self.gameWidget.bonusCounterWidget.btnBonusDec.clicked.connect(self.playerList.decreasePlayerBonus)
+        self.gameWidget.levelCounterWidget.btnLevelInc.clicked.connect(self.playerList.increasePlayerLevel)
+        self.gameWidget.levelCounterWidget.btnLevelDec.clicked.connect(self.playerList.decreasePlayerLevel)
+        self.gameWidget.btnNextPlayer.clicked.connect(self.gameWidget.game.increaseRounds)
+        self.gameWidget.btnNextPlayer.clicked.connect(self.playerList.browser.nextItem)
 
         # Navigation buttons
         self.btnBack = QPushButton("Back")
@@ -116,7 +125,7 @@ class LevelCounter(QMainWindow):
 
             self.setMaximumSize(1500, 750)
             self.setMinimumSize(1500, 750)
-            self.resize(1500, 1024)
+            self.resize(1500, 750)
 
             self.playerList.btnRemovePlayer.hide()
             self.playerList.btnEditPlayer.hide()

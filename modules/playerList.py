@@ -105,12 +105,17 @@ class PlayerList(QWidget):
         self.browser.repaint()
 
 
+    def increasePlayerRounds(self):
+
+        self.browser.currentItem().playerObject.increaseRounds()
+
     def removePlayer(self):
 
         dbu.Database().removePlayer(self.browser.getCurrentPlayer().name,
                                     self.browser.getCurrentPlayer().games,
                                     self.browser.getCurrentPlayer().wins)
         self.browser.refreshView()
+
 
 class PlayerBrowser(QListWidget):
 
@@ -128,6 +133,15 @@ class PlayerBrowser(QListWidget):
         self.currentPlayer = None
 
         self.itemClicked.connect(self.setCurrentPlayer)
+
+    def nextItem(self):
+
+        print(self.currentIndex().row())
+
+        self.setCurrentRow(self.currentIndex().row()+1)
+
+        if self.currentIndex().row() == -1:
+            self.setCurrentRow(0)
 
     def getCurrentPlayer(self):
 
@@ -155,12 +169,12 @@ class PlayerBrowser(QListWidget):
             playerObj = ply.Player(player[0][1]) # create player objects
             # set players stats
             playerObj.setGender(player[0][2])
-            playerObj.setRounds(player[0][3])
+            playerObj.setGames(player[0][3])
             playerObj.setWins(player[0][4])
             playerObj.setAvatar()
 
             # create list item
-            PlayerItem(playerObj, self)
+            self.items = PlayerItem(playerObj, self)
 
             self.playerObjects.append(playerObj)
 

@@ -13,6 +13,12 @@ QScrollBar::handle:vertical {
     font: bold 24px;
 }
 
+#RoundCounter {
+    font-weight:600;
+    font-size:30pt
+
+}
+
 #addPlayerLabels{
     font-weight:600;
     font-size:14pt
