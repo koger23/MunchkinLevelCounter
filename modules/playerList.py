@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from PySide2.QtWidgets import QApplication, QWidget, QListWidget, QStyledItemDelegate, QVBoxLayout, QStyle, QListWidgetItem, QPushButton, QHBoxLayout
+from PySide2.QtWidgets import QApplication, QWidget, QListWidget, QStyledItemDelegate, QVBoxLayout, QStyle, QListWidgetItem, QPushButton, QHBoxLayout, QAbstractItemView
 from PySide2.QtGui import QIcon, QBrush, QColor, QPen, QPixmap, QFont
 from PySide2.QtCore import QSize, QRect, Qt
 
@@ -20,6 +20,7 @@ class PlayerList(QWidget):
         mainLayout = QVBoxLayout()
         mainLayout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(mainLayout)
+
 
         addPlayerLayout = QHBoxLayout()
         mainLayout.addLayout(addPlayerLayout)
@@ -100,6 +101,7 @@ class PlayerBrowser(QListWidget):
         self.setSpacing(5)
 
         self.setItemDelegate(MyDelegate())
+        self.setDragDropMode(QAbstractItemView.InternalMove)
 
         self.currentPlayer = None
 
