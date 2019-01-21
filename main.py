@@ -3,9 +3,9 @@
 
 import sys
 
-from PySide2.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QPushButton, QMessageBox
+from PySide2.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QPushButton, QHBoxLayout
 from PySide2.QtGui import QFontDatabase
-from modules import playerList, mainMenu, quitWidget
+from modules import playerList, mainMenu, quitWidget, gameWidget
 
 class LevelCounter(QMainWindow):
 
@@ -17,8 +17,11 @@ class LevelCounter(QMainWindow):
         self.setMaximumSize(600, 800)
 
         self.centralWidget = QWidget()
-        mainLayout = QVBoxLayout(self.centralWidget)
+        baseLayout = QHBoxLayout(self.centralWidget)
         self.setCentralWidget(self.centralWidget)
+
+        mainLayout = QVBoxLayout()
+        baseLayout.addLayout(mainLayout)
 
         # Main Menu
         self.mainMenu = mainMenu.MainMenu()
@@ -31,6 +34,15 @@ class LevelCounter(QMainWindow):
         self.playerList = playerList.PlayerList(self)
         mainLayout.addWidget(self.playerList)
         self.playerList.hide()
+
+        # Game Widget
+        self.gameWidget = gameWidget.GameWidget()
+        baseLayout.addWidget(self.gameWidget)
+        self.gameWidget.setVisible(False)
+        self.gameWidget.btnBonusInc.clicked.connect(self.playerList.increasePlayerBonus)
+        self.gameWidget.btnBonusDec.clicked.connect(self.playerList.decreasePlayerBonus)
+        self.gameWidget.btnLevelInc.clicked.connect(self.playerList.increasePlayerLevel)
+        self.gameWidget.btnLevelDec.clicked.connect(self.playerList.decreasePlayerLevel)
 
         # Navigation buttons
         self.btnBack = QPushButton("Back")
@@ -102,13 +114,15 @@ class LevelCounter(QMainWindow):
                 if item.playerObject.inGame == 0:
                     self.playerList.browser.takeItem(self.playerList.browser.row(item))
 
-            self.setMaximumSize(750, 750)
-            self.setMinimumSize(750, 750)
-            self.resize(750, 1024)
+            self.setMaximumSize(1500, 750)
+            self.setMinimumSize(1500, 750)
+            self.resize(1500, 1024)
 
             self.playerList.btnRemovePlayer.hide()
             self.playerList.btnEditPlayer.hide()
             self.playerList.btnAddPlayer.hide()
+
+            self.gameWidget.setVisible(True)
 
             self.btnStartGame.hide()
             self.btnBack.hide()
@@ -117,6 +131,7 @@ class LevelCounter(QMainWindow):
     def leaveGame(self):
 
         quitWidget.QuitWidget(self).quitMsg()
+        self.gameWidget.setVisible(False)
 
     def applyStyle(self):
 

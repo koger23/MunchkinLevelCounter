@@ -3,15 +3,14 @@ QWidget {
     color: #000000
 }
 
-QLabel {
-    background-color:transparent;
-    font: 10pt "Helvetica";
-    color: #000000
-}
-
 QScrollBar::handle:vertical {
     border: 0px solid #333;
     background:#222;
+}
+
+#bonusLabel{
+    font-weight:600;
+    font: bold 24px;
 }
 
 #addPlayerLabels{
@@ -54,3 +53,5 @@ QPushButton:checked{
     background-color: rgba(0, 0, 0, 80%);
     color: #222;
 }
+
+

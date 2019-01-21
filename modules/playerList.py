@@ -14,8 +14,9 @@ class PlayerList(QWidget):
 
         super(PlayerList, self).__init__(parent)
         self.mainWindow = mainWindow
-        # self.resize(600, 700)
-        # self.setMaximumSize(600, 700)
+        # self.resize(750, 700)
+        # self.setMinimumSize(750, 700)
+        # self.setMaximumSize(750, 700)
 
         mainLayout = QVBoxLayout()
         mainLayout.setContentsMargins(0, 0, 0, 0)
@@ -82,6 +83,27 @@ class PlayerList(QWidget):
         self.setMaximumSize(600, 250)
 
         self.browser.refreshView()
+
+    def increasePlayerBonus(self):
+
+        self.browser.currentItem().playerObject.increaseBonus()
+        self.browser.repaint()
+
+    def decreasePlayerBonus(self):
+
+        self.browser.currentItem().playerObject.decreaseBonus()
+        self.browser.repaint()
+
+    def increasePlayerLevel(self):
+
+        self.browser.currentItem().playerObject.increaseLevel()
+        self.browser.repaint()
+
+    def decreasePlayerLevel(self):
+
+        self.browser.currentItem().playerObject.decreaseLevel()
+        self.browser.repaint()
+
 
     def removePlayer(self):
 
