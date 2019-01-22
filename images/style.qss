@@ -19,6 +19,17 @@ QScrollBar::handle:vertical {
 
 }
 
+#lblThrowDice{
+    font-weight:300;
+    font-size:18pt
+
+}
+
+#lblSkull{
+    font-weight:300;
+    font-size:18pt
+}
+
 #addPlayerLabels{
     font-weight:600;
     font-size:14pt

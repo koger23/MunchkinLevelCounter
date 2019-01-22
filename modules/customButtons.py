@@ -17,4 +17,5 @@ class CustomButton(QPushButton):
         self.setFixedHeight(50)
         img = QIcon(str(icon))
         self.setIcon(img);
-        self.setIconSize(QSize(self.width(), self.height()));
+        self.setIconSize(QSize(self.width(), self.height()))
+

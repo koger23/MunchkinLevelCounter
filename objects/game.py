@@ -6,8 +6,3 @@ class Game(object):
         super(Game, self).__init__()
 
         self.rounds = 1
-
-    def increaseRounds(self):
-
-        self.rounds += 1
-        print(self.rounds)

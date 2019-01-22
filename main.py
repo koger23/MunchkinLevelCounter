@@ -50,8 +50,7 @@ class LevelCounter(QMainWindow):
         self.gameWidget.bonusCounterWidget.btnBonusDec.clicked.connect(self.playerList.decreasePlayerBonus)
         self.gameWidget.levelCounterWidget.btnLevelInc.clicked.connect(self.playerList.increasePlayerLevel)
         self.gameWidget.levelCounterWidget.btnLevelDec.clicked.connect(self.playerList.decreasePlayerLevel)
-        self.gameWidget.btnNextPlayer.clicked.connect(self.gameWidget.game.increaseRounds)
-        self.gameWidget.btnNextPlayer.clicked.connect(self.playerList.browser.nextItem)
+        self.gameWidget.btnNextPlayer.clicked.connect(self.playerList.nextItem)
 
         # Navigation buttons
         self.btnBack = QPushButton("Back")
@@ -123,15 +122,17 @@ class LevelCounter(QMainWindow):
                 if item.playerObject.inGame == 0:
                     self.playerList.browser.takeItem(self.playerList.browser.row(item))
 
-            self.setMaximumSize(1500, 750)
-            self.setMinimumSize(1500, 750)
-            self.resize(1500, 750)
+            self.setMaximumSize(1300, 750)
+            self.setMinimumSize(1300, 750)
+            self.resize(1300, 750)
+
+            self.playerList.browser.setCurrentRow(0)
 
             self.playerList.btnRemovePlayer.hide()
             self.playerList.btnEditPlayer.hide()
             self.playerList.btnAddPlayer.hide()
 
-            self.gameWidget.setVisible(True)
+            self.gameWidget.show()
 
             self.btnStartGame.hide()
             self.btnBack.hide()
@@ -140,7 +141,7 @@ class LevelCounter(QMainWindow):
     def leaveGame(self):
 
         quitWidget.QuitWidget(self).quitMsg()
-        self.gameWidget.setVisible(False)
+
 
     def applyStyle(self):
 

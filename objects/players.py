@@ -24,6 +24,7 @@ class Player(object):
 
         self.setId()
 
+
     def setId(self):
 
         self.id = dbu.Database().getPlayerId(self.name, self.games, self.wins)

@@ -104,10 +104,26 @@ class PlayerList(QWidget):
         self.browser.currentItem().playerObject.decreaseLevel()
         self.browser.repaint()
 
-
     def increasePlayerRounds(self):
 
-        self.browser.currentItem().playerObject.increaseRounds()
+        # self.browser.currentItem().playerObject.increaseRounds()
+
+        for i in range(self.browser.count()):
+
+            self.browser.item(i).playerObject.increaseRounds()
+
+        self.mainWindow.gameWidget.game.rounds += 1
+        self.mainWindow.gameWidget.lblRounds.setText("Round: " + str(self.mainWindow.gameWidget.game.rounds))
+
+        self.browser.repaint()
+
+    def nextItem(self):
+
+        self.browser.setCurrentRow(self.browser.currentIndex().row()+1)
+
+        if self.browser.currentIndex().row() == -1:
+            self.browser.setCurrentRow(0)
+            self.increasePlayerRounds()
 
     def removePlayer(self):
 
@@ -134,14 +150,7 @@ class PlayerBrowser(QListWidget):
 
         self.itemClicked.connect(self.setCurrentPlayer)
 
-    def nextItem(self):
 
-        print(self.currentIndex().row())
-
-        self.setCurrentRow(self.currentIndex().row()+1)
-
-        if self.currentIndex().row() == -1:
-            self.setCurrentRow(0)
 
     def getCurrentPlayer(self):
 
@@ -150,7 +159,6 @@ class PlayerBrowser(QListWidget):
     def setCurrentPlayer(self):
 
         self.currentPlayer = self.currentItem().playerObject
-
 
     def refreshView(self):
 
@@ -293,6 +301,13 @@ class MyDelegate(QStyledItemDelegate):
         painter.drawText(winsRect, Qt.AlignLeft | Qt.AlignVCenter, "Wins:")
         winsValRect = QRect(nameRect.left(), roundsRect.bottom(), 100, 20)
         painter.drawText(winsValRect, Qt.AlignRight | Qt.AlignVCenter, str(playerObject.wins))
+
+        # Player played Rounds
+        painter.setFont(self.fontPlayerLevel)
+        roundsRect = QRect(nameRect.x(), winsRect.bottom(), 70, 20)
+        painter.drawText(roundsRect, Qt.AlignLeft | Qt.AlignVCenter, "Rounds:")
+        roundsValRect = QRect(nameRect.left(), winsRect.bottom(), 100, 20)
+        painter.drawText(roundsValRect, Qt.AlignRight | Qt.AlignVCenter, str(playerObject.rounds))
 
 if __name__ == '__main__':
 

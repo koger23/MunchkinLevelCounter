@@ -28,6 +28,7 @@ class QuitWidget(QWidget):
         if ret == QMessageBox.Save:
             # Save was clicked - save game dialog
             pass
+
         elif ret == QMessageBox.Discard:
             # Don't save was clicked - exitting into main menu
             self.mainWindow.backToMainMenu()
@@ -35,8 +36,11 @@ class QuitWidget(QWidget):
             self.mainWindow.playerList.btnRemovePlayer.show()
             self.mainWindow.playerList.btnEditPlayer.show()
             self.mainWindow.playerList.btnAddPlayer.show()
+            self.mainWindow.gameWidget.setVisible(False)
+
         elif ret == QMessageBox.Cancel:
             # cancel was clicked
+            self.mainWindow.gameWidget.setVisible(True)
             return
         else:
             pass
