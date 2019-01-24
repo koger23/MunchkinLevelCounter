@@ -4,8 +4,8 @@ QWidget {
 }
 
 QScrollBar::handle:vertical {
-    border: 0px solid #333;
-    background:#222;
+    border: 1px solid #333;
+    background:#3e2723;
 }
 
 #bonusLabel{

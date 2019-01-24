@@ -147,14 +147,15 @@ class BonusCountWidget(QWidget):
         buttonsLayout.addLayout(levelLayout)
 
         self.btnBonusInc = CustomButton("images/icon_plus.png")
-        bonusLayout.addWidget(self.btnBonusInc, Qt.AlignHCenter)
+        bonusLayout.addWidget(self.btnBonusInc, 0, Qt.AlignHCenter)
 
-        lblBonus = QLabel("Bonus")
+        lblBonus = QLabel("<Bonus>")
+        lblBonus.setAlignment(Qt.AlignHCenter)
         lblBonus.setObjectName("bonusLabel")
         bonusLayout.addWidget(lblBonus)
 
         self.btnBonusDec = CustomButton("images/icon_minus.png")
-        bonusLayout.addWidget(self.btnBonusDec)
+        bonusLayout.addWidget(self.btnBonusDec, 0, Qt.AlignHCenter)
 
 
 class LevelCountWidget(QWidget):
@@ -176,14 +177,15 @@ class LevelCountWidget(QWidget):
         buttonsLayout.addLayout(levelLayout)
 
         self.btnLevelInc = CustomButton("images/icon_plus.png")
-        levelLayout.addWidget(self.btnLevelInc)
+        levelLayout.addWidget(self.btnLevelInc, 0, Qt.AlignHCenter)
 
-        lblLevel = QLabel("Level")
+        lblLevel = QLabel("<Level>")
+        lblLevel.setAlignment(Qt.AlignHCenter)
         lblLevel.setObjectName("bonusLabel")
         levelLayout.addWidget(lblLevel)
 
         self.btnLevelDec = CustomButton("images/icon_minus.png")
-        levelLayout.addWidget(self.btnLevelDec)
+        levelLayout.addWidget(self.btnLevelDec, 0, Qt.AlignHCenter)
 
 class QHLine(QFrame):
 

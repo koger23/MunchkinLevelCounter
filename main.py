@@ -131,9 +131,9 @@ class LevelCounter(QMainWindow):
                 if item.playerObject.inGame == 0:
                     self.playerList.browser.takeItem(self.playerList.browser.row(item))
 
-            self.setMaximumSize(1300, 750)
-            self.setMinimumSize(1300, 750)
-            self.resize(1300, 750)
+            self.setMaximumSize(1400, 750)
+            self.setMinimumSize(1400, 750)
+            self.resize(1400, 750)
 
             self.playerList.browser.setCurrentRow(0)
 
