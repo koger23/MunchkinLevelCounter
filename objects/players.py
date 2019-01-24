@@ -80,6 +80,15 @@ class Player(object):
         if self.currentBonus < 0:
             self.currentBonus = 0
 
+    def changeGender(self):
+
+        if self.gender == 'male':
+            self.gender = 'female'
+        elif self.gender == 'female':
+            self.gender = 'neutral'
+        else:
+            self.gender = 'male'
+        self.setAvatar()
 
     def increaseWins(self):
 
@@ -88,6 +97,5 @@ class Player(object):
     def die(self):
 
         self.currentBonus = 0
-        self.currentLevel = 1
-        self.isAlive = 0
-        self.avatar = r"Y:\Dropbox\Python\MunchkinLevelCounter\images\munchkin\dead.png"
+        # self.isAlive = 0
+        # self.avatar = r"Y:\Dropbox\Python\MunchkinLevelCounter\images\munchkin\dead.png"

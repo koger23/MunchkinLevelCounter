@@ -49,8 +49,13 @@ class LevelCounter(QMainWindow):
         self.gameWidget.bonusCounterWidget.btnBonusInc.clicked.connect(self.playerList.increasePlayerBonus)
         self.gameWidget.bonusCounterWidget.btnBonusDec.clicked.connect(self.playerList.decreasePlayerBonus)
         self.gameWidget.levelCounterWidget.btnLevelInc.clicked.connect(self.playerList.increasePlayerLevel)
+        self.gameWidget.levelCounterWidget.btnLevelInc.clicked.connect(self.updateRoundsPic)
         self.gameWidget.levelCounterWidget.btnLevelDec.clicked.connect(self.playerList.decreasePlayerLevel)
+        self.gameWidget.levelCounterWidget.btnLevelDec.clicked.connect(self.updateRoundsPic)
         self.gameWidget.btnNextPlayer.clicked.connect(self.playerList.nextItem)
+        self.gameWidget.btnNextPlayer.clicked.connect(self.updateRoundsPic)
+        self.gameWidget.btnDie.clicked.connect(self.playerList.diePlayer)
+        self.gameWidget.btnGender.clicked.connect(self.playerList.changePlayerGender)
 
         # Navigation buttons
         self.btnBack = QPushButton("Back")
@@ -72,6 +77,10 @@ class LevelCounter(QMainWindow):
         self.btnQuit.hide()
 
         self.applyStyle()
+
+    def updateRoundsPic(self):
+
+        self.gameWidget.changeGamePic(self.playerList.getMaxPlayerLevel())
 
     def showPlayerList(self):
 

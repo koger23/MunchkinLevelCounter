@@ -18,6 +18,22 @@ class GameWidget(QWidget):
         self.setMinimumWidth(600)
         self.setMaximumWidth(600)
 
+        # create Layouts
+        roundsLayout = QVBoxLayout()
+        mainLayout.addLayout(roundsLayout)
+
+        iconsLayout = QHBoxLayout()
+        mainLayout.addLayout(iconsLayout)
+
+        genderLayout = QVBoxLayout()
+        iconsLayout.addLayout(genderLayout)
+
+        dieLayout = QVBoxLayout()
+        iconsLayout.addLayout(dieLayout)
+
+        diceLayout = QVBoxLayout()
+        iconsLayout.addLayout(diceLayout)
+
         # Game object to count rounds
         self.game = gameObj
 
@@ -25,56 +41,57 @@ class GameWidget(QWidget):
         self.roundNumber = 1
         self.lblRounds = QLabel("Round " + str(self.game.rounds))
         self.lblRounds.setObjectName("RoundCounter")
-        mainLayout.addWidget(self.lblRounds)
-        self.lblRounds.setAlignment(Qt.AlignTop)
-        self.lblRounds.setAlignment(Qt.AlignHCenter)
+        roundsLayout.addWidget(self.lblRounds)
+        self.lblRounds.setAlignment(Qt.AlignCenter)
 
         # Picture fight
-        lblPic = QLabel()
-        pixMap = QPixmap("images/newGame.png")
-        pixMap = pixMap.scaledToHeight(150, Qt.SmoothTransformation)
-        lblPic.setPixmap(pixMap)
-        mainLayout.addWidget(lblPic)
-        lblPic.setAlignment(Qt.AlignTop)
-        lblPic.setAlignment(Qt.AlignLeft)
+        self.lblPic = QLabel()
+        pixMap = QPixmap("images/newGame-" + str(self.game.rounds) + ".png")
+        pixMap = pixMap.scaledToHeight(200, Qt.SmoothTransformation)
+        self.lblPic.setPixmap(pixMap)
+        roundsLayout.addWidget(self.lblPic)
+        self.lblPic.setAlignment(Qt.AlignCenter)
+
+        mainLayout.addSpacing(50)
 
         # Change gender
-        lblGender = QLabel("Change sex")
-        lblGender.setObjectName("lblGender")
-        mainLayout.addWidget(lblGender)
-        lblGender.setAlignment(Qt.AlignBottom | Qt.AlignLeft)
-
         lblGender = QLabel()
         pixMapGender = QPixmap("images/icon_changegender.png")
         pixMapGender = pixMapGender.scaledToHeight(100, Qt.SmoothTransformation)
         lblGender.setPixmap(pixMapGender)
-        mainLayout.addWidget(lblGender)
+        genderLayout.addWidget(lblGender)
+        lblGender.setAlignment(Qt.AlignCenter)
+
+        self.btnGender = QPushButton("Change Sex")
+        self.btnGender.setObjectName("gameIconBtn")
+        genderLayout.addWidget(self.btnGender)
+        self.btnGender.setMaximumWidth(120)
 
         # Skull - dead
-        lblSkull = QLabel("Die!")
-        lblSkull.setObjectName("lblSkull")
-        mainLayout.addWidget(lblSkull)
-        lblSkull.setAlignment(Qt.AlignBottom | Qt.AlignHCenter)
-
         lblSkull = QLabel()
         pixMapSkull = QPixmap("images/dead.png")
         pixMapSkull = pixMapSkull.scaledToHeight(100, Qt.SmoothTransformation)
         lblSkull.setPixmap(pixMapSkull)
-        mainLayout.addWidget(lblSkull)
-        lblSkull.setAlignment(Qt.AlignHCenter)
+        dieLayout.addWidget(lblSkull)
+        lblSkull.setAlignment(Qt.AlignCenter)
+
+        self.btnDie = QPushButton("Die!")
+        self.btnDie.setObjectName("gameIconBtn")
+        dieLayout.addWidget(self.btnDie)
+        self.btnDie.setMaximumWidth(120)
 
         # Dice
-        lblThrow = QLabel("Throw")
-        lblThrow.setObjectName("lblThrowDice")
-        mainLayout.addWidget(lblThrow)
-        lblThrow.setAlignment(Qt.AlignBottom | Qt.AlignRight)
-
         lblDice = QLabel()
         pixMapDice = QPixmap("images/dice.png")
-        pixMapDice = pixMapDice.scaledToHeight(50, Qt.SmoothTransformation)
+        pixMapDice = pixMapDice.scaledToHeight(80, Qt.SmoothTransformation)
         lblDice.setPixmap(pixMapDice)
-        mainLayout.addWidget(lblDice)
-        lblDice.setAlignment(Qt.AlignRight)
+        lblDice.setAlignment(Qt.AlignCenter)
+        diceLayout.addWidget(lblDice)
+
+        btnThrow = QPushButton("Throw")
+        btnThrow.setObjectName("gameIconBtn")
+        diceLayout.addWidget(btnThrow)
+        btnThrow.setMaximumWidth(120)
 
         # Counters
         counterLayout = QHBoxLayout()
@@ -86,14 +103,19 @@ class GameWidget(QWidget):
         self.levelCounterWidget = LevelCountWidget()
         counterLayout.addWidget(self.levelCounterWidget)
 
-        # Placeholder
-        lbl = QLabel()
-        mainLayout.addWidget(lbl)
+        mainLayout.addSpacing(50)
 
         # Next Player Button
         self.btnNextPlayer = QPushButton("Next Player")
         self.btnNextPlayer.setMinimumHeight(50)
         mainLayout.addWidget(self.btnNextPlayer)
+
+    def changeGamePic(self, maxPlayerLevel):
+
+        pixMapRaw = QPixmap("images/newGame-" + str(maxPlayerLevel) + ".png")
+        pixMap = pixMapRaw.scaledToHeight(200, Qt.SmoothTransformation)
+        self.lblPic.setPixmap(pixMap)
+        self.lblPic.repaint()
 
     def increaseGameRounds(self):
 
@@ -101,6 +123,9 @@ class GameWidget(QWidget):
         self.lblRounds.setText(str(self.lblRounds))
         print(self.lblRounds)
         self.repaint()
+
+    def test(self):
+        print("Print")
 
 
 class BonusCountWidget(QWidget):

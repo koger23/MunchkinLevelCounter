@@ -30,6 +30,10 @@ QScrollBar::handle:vertical {
     font-size:18pt
 }
 
+#gameIconBtn{
+    border-radius: 5px;
+}
+
 #addPlayerLabels{
     font-weight:600;
     font-size:14pt
@@ -52,7 +56,8 @@ QListWidget {
 QPushButton {
     background-color: #3e2723;
     border: 0px;
-    padding: 3px 15px 4px 15px;
+    border-radius: 12px;
+    padding: 3px 3px 3px 3px;
     font: bold 14px;
     color:#cccccc
 }

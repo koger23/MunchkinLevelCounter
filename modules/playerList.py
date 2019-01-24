@@ -106,8 +106,6 @@ class PlayerList(QWidget):
 
     def increasePlayerRounds(self):
 
-        # self.browser.currentItem().playerObject.increaseRounds()
-
         for i in range(self.browser.count()):
 
             self.browser.item(i).playerObject.increaseRounds()
@@ -115,6 +113,16 @@ class PlayerList(QWidget):
         self.mainWindow.gameWidget.game.rounds += 1
         self.mainWindow.gameWidget.lblRounds.setText("Round: " + str(self.mainWindow.gameWidget.game.rounds))
 
+        self.browser.repaint()
+
+    def diePlayer(self):
+
+        self.browser.currentItem().playerObject.die()
+        self.browser.repaint()
+
+    def changePlayerGender(self):
+
+        self.browser.currentItem().playerObject.changeGender()
         self.browser.repaint()
 
     def nextItem(self):
@@ -131,6 +139,14 @@ class PlayerList(QWidget):
                                     self.browser.getCurrentPlayer().games,
                                     self.browser.getCurrentPlayer().wins)
         self.browser.refreshView()
+
+    def getMaxPlayerLevel(self):
+
+        lvlList = []
+
+        for i in self.browser.playerObjects:
+            lvlList.append(i.currentLevel)
+        return max(lvlList)
 
 
 class PlayerBrowser(QListWidget):
@@ -149,8 +165,6 @@ class PlayerBrowser(QListWidget):
         self.currentPlayer = None
 
         self.itemClicked.connect(self.setCurrentPlayer)
-
-
 
     def getCurrentPlayer(self):
 
