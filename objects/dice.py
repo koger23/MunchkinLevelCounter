@@ -6,6 +6,7 @@ class Dice(object):
 
         self.value = 0
 
-    def drop(self):
+    def throw(self):
 
-        self.value = random.randint(0, 6)
+        self.value = random.randint(1, 6)
+        print(self.value)

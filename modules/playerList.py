@@ -22,7 +22,6 @@ class PlayerList(QWidget):
         mainLayout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(mainLayout)
 
-
         addPlayerLayout = QHBoxLayout()
         mainLayout.addLayout(addPlayerLayout)
 

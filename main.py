@@ -7,6 +7,7 @@ from PySide2.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, Q
 from PySide2.QtGui import QFontDatabase
 from modules import playerList, mainMenu, quitWidget, gameWidget
 from objects import game
+import threading
 
 class LevelCounter(QMainWindow):
 
@@ -56,6 +57,7 @@ class LevelCounter(QMainWindow):
         self.gameWidget.btnNextPlayer.clicked.connect(self.updateRoundsPic)
         self.gameWidget.btnDie.clicked.connect(self.playerList.diePlayer)
         self.gameWidget.btnGender.clicked.connect(self.playerList.changePlayerGender)
+        self.gameWidget.btnThrow.clicked.connect(self.gameWidget.dice.throw)
 
         # Navigation buttons
         self.btnBack = QPushButton("Back")
@@ -146,6 +148,11 @@ class LevelCounter(QMainWindow):
             self.btnStartGame.hide()
             self.btnBack.hide()
             self.btnQuit.show()
+
+            t = threading.Thread(target=self.gameWidget.timeWorker)
+            t.start()
+
+
 
     def leaveGame(self):
 

@@ -8,6 +8,11 @@ QScrollBar::handle:vertical {
     background:#3e2723;
 }
 
+#lblElapsedTime{
+    font-weight:600;
+    font: bold 16px;
+}
+
 #bonusLabel{
     font-weight:600;
     font: bold 24px;

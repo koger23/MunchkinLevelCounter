@@ -1,7 +1,9 @@
-from PySide2.QtWidgets import QWidget, QPushButton, QVBoxLayout, QLabel, QHBoxLayout, QFrame
+from PySide2.QtWidgets import QWidget, QPushButton, QVBoxLayout, QLabel, QHBoxLayout
 from PySide2.QtGui import QPixmap
+from objects import dice
 from modules.customButtons import CustomButton
-from PySide2.QtCore import Qt
+from PySide2.QtCore import Qt, QTime
+import time
 
 
 class GameWidget(QWidget):
@@ -44,6 +46,14 @@ class GameWidget(QWidget):
         roundsLayout.addWidget(self.lblRounds)
         self.lblRounds.setAlignment(Qt.AlignCenter)
 
+        # Time elapsed label
+        self.startTime = time.time()
+        self.endTime = time.time()
+        self.lblTime = QLabel('00:00:00')
+        self.lblTime.setObjectName("lblElapsedTime")
+        roundsLayout.addWidget(self.lblTime)
+        self.lblTime.setAlignment(Qt.AlignCenter)
+
         # Picture fight
         self.lblPic = QLabel()
         pixMap = QPixmap("images/newGame-" + str(self.game.rounds) + ".png")
@@ -52,7 +62,8 @@ class GameWidget(QWidget):
         roundsLayout.addWidget(self.lblPic)
         self.lblPic.setAlignment(Qt.AlignCenter)
 
-        mainLayout.addSpacing(50)
+
+        mainLayout.addSpacing(10)
 
         # Change gender
         lblGender = QLabel()
@@ -81,6 +92,8 @@ class GameWidget(QWidget):
         self.btnDie.setMaximumWidth(120)
 
         # Dice
+        self.dice = dice.Dice()
+
         lblDice = QLabel()
         pixMapDice = QPixmap("images/dice.png")
         pixMapDice = pixMapDice.scaledToHeight(80, Qt.SmoothTransformation)
@@ -88,10 +101,10 @@ class GameWidget(QWidget):
         lblDice.setAlignment(Qt.AlignCenter)
         diceLayout.addWidget(lblDice)
 
-        btnThrow = QPushButton("Throw")
-        btnThrow.setObjectName("gameIconBtn")
-        diceLayout.addWidget(btnThrow)
-        btnThrow.setMaximumWidth(120)
+        self.btnThrow = QPushButton("Throw")
+        self.btnThrow.setObjectName("gameIconBtn")
+        diceLayout.addWidget(self.btnThrow)
+        self.btnThrow.setMaximumWidth(120)
 
         # Counters
         counterLayout = QHBoxLayout()
@@ -112,8 +125,13 @@ class GameWidget(QWidget):
 
     def changeGamePic(self, maxPlayerLevel):
 
-        pixMapRaw = QPixmap("images/newGame-" + str(maxPlayerLevel) + ".png")
-        pixMap = pixMapRaw.scaledToHeight(200, Qt.SmoothTransformation)
+        if maxPlayerLevel % 10 == 0:
+            pixMapRaw = QPixmap("images/newGame-10.png")
+            pixMap = pixMapRaw.scaledToHeight(200, Qt.SmoothTransformation)
+        else:
+            pixMapRaw = QPixmap("images/newGame-" + str(maxPlayerLevel)[-1:] + ".png")
+            pixMap = pixMapRaw.scaledToHeight(200, Qt.SmoothTransformation)
+
         self.lblPic.setPixmap(pixMap)
         self.lblPic.repaint()
 
@@ -124,9 +142,21 @@ class GameWidget(QWidget):
         print(self.lblRounds)
         self.repaint()
 
-    def test(self):
-        print("Print")
+    def timeWorker(self):
 
+        """
+        Updateting elapsed time.
+        """
+
+        timer = QTime()
+        timer.start()
+
+        while True:
+            time.sleep(1)
+
+            m, s = divmod(timer.elapsed()//1000, 60)
+            h, m = divmod(m, 60)
+            self.lblTime.setText("%d:%02d:%02d" % (h, m, s))
 
 class BonusCountWidget(QWidget):
 
@@ -186,12 +216,3 @@ class LevelCountWidget(QWidget):
 
         self.btnLevelDec = CustomButton("images/icon_minus.png")
         levelLayout.addWidget(self.btnLevelDec, 0, Qt.AlignHCenter)
-
-class QHLine(QFrame):
-
-    def __init__(self):
-
-        super(QHLine, self).__init__()
-
-        self.setFrameShape(QFrame.HLine)
-        self.setFrameShadow(QFrame.Sunken)
