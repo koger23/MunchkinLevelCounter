@@ -12,6 +12,9 @@ class AddPlayer(QWidget):
 
         mainLayout = QHBoxLayout()
         mainLayout.setContentsMargins(0, 0, 0, 0)
+        self.setMaximumSize(600, 250)
+        self.setMinimumSize(600, 250)
+        self.resize(600, 250)
         self.setLayout(mainLayout)
 
         baseLayout = QGridLayout()
@@ -85,9 +88,8 @@ class AddPlayer(QWidget):
         self.playerList.mainWindow.btnBack.show()
         self.playerList.mainWindow.btnStartGame.show()
 
-        self.playerList.mainWindow.setMaximumSize(600, 800)
-        self.playerList.mainWindow.setMinimumSize(600, 800)
-        self.playerList.mainWindow.resize(600, 800)
+        self.playerList.setMaximumSize(600, 800)
+        self.playerList.browser.refreshView()
 
 
     def savePlayer(self):
@@ -286,7 +288,9 @@ class EditPlayer(AddPlayer):
         self.playerList.mainWindow.btnBack.show()
         self.playerList.mainWindow.btnStartGame.show()
 
-        self.playerList.setMaximumSize(600, 700)
+        self.playerList.mainWindow.setMaximumSize(600, 800)
+        self.playerList.mainWindow.setMinimumSize(600, 800)
+        self.playerList.mainWindow.resize(600, 800)
 
         self.playerList.browser.refreshView()
 

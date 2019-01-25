@@ -38,6 +38,10 @@ class QuitWidget(QWidget):
             self.mainWindow.playerList.btnAddPlayer.show()
             self.mainWindow.gameWidget.setVisible(False)
 
+            self.mainWindow.setMaximumSize(600, 800)
+            self.mainWindow.setMinimumSize(600, 800)
+            self.mainWindow.resize(600, 800)
+
         elif ret == QMessageBox.Cancel:
             # cancel was clicked
             self.mainWindow.gameWidget.setVisible(True)

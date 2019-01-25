@@ -98,12 +98,13 @@ class LevelCounter(QMainWindow):
         self.playerList.hide()
         self.btnStartGame.hide()
 
-        if self.playerList.addPlayerWidget.isVisible():
-            self.playerList.addPlayerWidget.hide()
+        # self.playerList.addPlayerWidget.hide()
 
-        self.resize(600, 800)
-        self.setMinimumSize(600, 800)
-        self.setMaximumSize(600, 800)
+        # self.resize(600, 800)
+        # self.setMinimumSize(600, 800)
+        # self.setMaximumSize(600, 800)
+
+        self.playerList.browser.refreshView()
 
     def newGame(self):
 
@@ -162,6 +163,7 @@ class LevelCounter(QMainWindow):
         if self.timer.isAlive():
 
             self.gameWidget.breaker = 1
+
 
     def applyStyle(self):
 
