@@ -57,7 +57,7 @@ class LevelCounter(QMainWindow):
         self.gameWidget.btnNextPlayer.clicked.connect(self.updateRoundsPic)
         self.gameWidget.btnDie.clicked.connect(self.playerList.diePlayer)
         self.gameWidget.btnGender.clicked.connect(self.playerList.changePlayerGender)
-        self.gameWidget.btnThrow.clicked.connect(self.gameWidget.dice.throw)
+        self.gameWidget.btnThrow.clicked.connect(self.diceAction)
 
         # Navigation buttons
         self.btnBack = QPushButton("Back")
@@ -152,7 +152,10 @@ class LevelCounter(QMainWindow):
             t = threading.Thread(target=self.gameWidget.timeWorker)
             t.start()
 
+    def diceAction(self):
 
+        t = threading.Thread(target=self.gameWidget.changeDicePic)
+        t.start()
 
     def leaveGame(self):
 

@@ -9,4 +9,5 @@ class Dice(object):
     def throw(self):
 
         self.value = random.randint(1, 6)
-        print(self.value)
+
+        return self.value

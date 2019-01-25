@@ -94,12 +94,12 @@ class GameWidget(QWidget):
         # Dice
         self.dice = dice.Dice()
 
-        lblDice = QLabel()
+        self.lblDice = QLabel()
         pixMapDice = QPixmap("images/dice.png")
         pixMapDice = pixMapDice.scaledToHeight(80, Qt.SmoothTransformation)
-        lblDice.setPixmap(pixMapDice)
-        lblDice.setAlignment(Qt.AlignCenter)
-        diceLayout.addWidget(lblDice)
+        self.lblDice.setPixmap(pixMapDice)
+        self.lblDice.setAlignment(Qt.AlignCenter)
+        diceLayout.addWidget(self.lblDice)
 
         self.btnThrow = QPushButton("Throw")
         self.btnThrow.setObjectName("gameIconBtn")
@@ -157,6 +157,19 @@ class GameWidget(QWidget):
             m, s = divmod(timer.elapsed()//1000, 60)
             h, m = divmod(m, 60)
             self.lblTime.setText("%d:%02d:%02d" % (h, m, s))
+
+    def changeDicePic(self):
+
+        val = self.dice.throw()
+        pixMapDice = QPixmap("images/dice-" + str(val) + ".png")
+        pixMapDice = pixMapDice.scaledToHeight(80, Qt.SmoothTransformation)
+        self.lblDice.setPixmap(pixMapDice)
+
+        time.sleep(3)
+
+        pixMapDice = QPixmap("images/dice.png")
+        pixMapDice = pixMapDice.scaledToHeight(80, Qt.SmoothTransformation)
+        self.lblDice.setPixmap(pixMapDice)
 
 class BonusCountWidget(QWidget):
 
