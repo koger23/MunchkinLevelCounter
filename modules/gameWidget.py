@@ -15,7 +15,7 @@ class GameWidget(QWidget):
         centralWidget = QWidget()
         mainLayout = QVBoxLayout(centralWidget)
         self.setLayout(mainLayout)
-        mainLayout.setContentsMargins(10, 10, 0, 0)
+        mainLayout.setContentsMargins(20, 0, 0, 0)
         self.resize(600, 800)
         self.setMinimumWidth(600)
         self.setMaximumWidth(600)
@@ -62,16 +62,13 @@ class GameWidget(QWidget):
         roundsLayout.addWidget(self.lblPic)
         self.lblPic.setAlignment(Qt.AlignCenter)
 
-
-        mainLayout.addSpacing(10)
-
         # Change gender
         lblGender = QLabel()
         pixMapGender = QPixmap("images/icon_changegender.png")
         pixMapGender = pixMapGender.scaledToHeight(100, Qt.SmoothTransformation)
         lblGender.setPixmap(pixMapGender)
         genderLayout.addWidget(lblGender)
-        lblGender.setAlignment(Qt.AlignCenter)
+        lblGender.setAlignment(Qt.AlignHCenter | Qt.AlignBottom)
 
         self.btnGender = QPushButton("Change Sex")
         self.btnGender.setObjectName("gameIconBtn")
@@ -84,7 +81,7 @@ class GameWidget(QWidget):
         pixMapSkull = pixMapSkull.scaledToHeight(100, Qt.SmoothTransformation)
         lblSkull.setPixmap(pixMapSkull)
         dieLayout.addWidget(lblSkull)
-        lblSkull.setAlignment(Qt.AlignCenter)
+        lblSkull.setAlignment(Qt.AlignHCenter | Qt.AlignBottom)
 
         self.btnDie = QPushButton("Die!")
         self.btnDie.setObjectName("gameIconBtn")
@@ -98,13 +95,15 @@ class GameWidget(QWidget):
         pixMapDice = QPixmap("images/dice.png")
         pixMapDice = pixMapDice.scaledToHeight(80, Qt.SmoothTransformation)
         self.lblDice.setPixmap(pixMapDice)
-        self.lblDice.setAlignment(Qt.AlignCenter)
         diceLayout.addWidget(self.lblDice)
+        self.lblDice.setAlignment(Qt.AlignHCenter | Qt.AlignBottom)
 
         self.btnThrow = QPushButton("Throw")
         self.btnThrow.setObjectName("gameIconBtn")
         diceLayout.addWidget(self.btnThrow)
         self.btnThrow.setMaximumWidth(120)
+
+        mainLayout.addSpacing(70)
 
         # Counters
         counterLayout = QHBoxLayout()
@@ -150,8 +149,9 @@ class GameWidget(QWidget):
 
         timer = QTime()
         timer.start()
+        self.breaker = 0
 
-        while True:
+        while self.breaker != 1:
             time.sleep(1)
 
             m, s = divmod(timer.elapsed()//1000, 60)

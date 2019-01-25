@@ -101,7 +101,7 @@ class LevelCounter(QMainWindow):
         if self.playerList.addPlayerWidget.isVisible():
             self.playerList.addPlayerWidget.hide()
 
-        self.resize(600, 700)
+        self.resize(600, 800)
         self.setMinimumSize(600, 800)
         self.setMaximumSize(600, 800)
 
@@ -133,24 +133,22 @@ class LevelCounter(QMainWindow):
                 if item.playerObject.inGame == 0:
                     self.playerList.browser.takeItem(self.playerList.browser.row(item))
 
-            self.setMaximumSize(1400, 750)
-            self.setMinimumSize(1400, 750)
-            self.resize(1400, 750)
+            self.setMaximumSize(1350, 800)
+            self.setMinimumSize(1350, 800)
+            self.resize(1350, 800)
 
             self.playerList.browser.setCurrentRow(0)
 
             self.playerList.btnRemovePlayer.hide()
             self.playerList.btnEditPlayer.hide()
             self.playerList.btnAddPlayer.hide()
-
             self.gameWidget.show()
-
             self.btnStartGame.hide()
             self.btnBack.hide()
             self.btnQuit.show()
 
-            t = threading.Thread(target=self.gameWidget.timeWorker)
-            t.start()
+            self.timer = threading.Thread(target=self.gameWidget.timeWorker)
+            self.timer.start()
 
     def diceAction(self):
 
@@ -161,6 +159,9 @@ class LevelCounter(QMainWindow):
 
         quitWidget.QuitWidget(self).quitMsg()
 
+        if self.timer.isAlive():
+
+            self.gameWidget.breaker = 1
 
     def applyStyle(self):
 

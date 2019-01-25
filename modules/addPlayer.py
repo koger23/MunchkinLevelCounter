@@ -11,7 +11,7 @@ class AddPlayer(QWidget):
         self.playerList = playerList
 
         mainLayout = QHBoxLayout()
-        # mainLayout.setContentsMargins(0, 0, 0, 0)
+        mainLayout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(mainLayout)
 
         baseLayout = QGridLayout()
@@ -85,7 +85,10 @@ class AddPlayer(QWidget):
         self.playerList.mainWindow.btnBack.show()
         self.playerList.mainWindow.btnStartGame.show()
 
-        self.playerList.setMaximumSize(600, 700)
+        self.playerList.mainWindow.setMaximumSize(600, 800)
+        self.playerList.mainWindow.setMinimumSize(600, 800)
+        self.playerList.mainWindow.resize(600, 800)
+
 
     def savePlayer(self):
 
@@ -158,14 +161,16 @@ class AddPlayer(QWidget):
 
         dbu.Database().addPlayer(name, gender, gamesPlayed, wins)
 
-        self.hide()
 
+        self.hide()
         self.playerList.btnAddPlayer.show()
         self.playerList.btnEditPlayer.show()
         self.playerList.browser.show()
         self.playerList.btnRemovePlayer.show()
         self.playerList.mainWindow.btnBack.show()
         self.playerList.mainWindow.btnStartGame.show()
+
+        self.playerList.setMaximumSize(600, 800)
         self.playerList.browser.refreshView()
 
 
@@ -272,8 +277,8 @@ class EditPlayer(AddPlayer):
                               int(self.txtPlayerGames.toPlainText()),
                               int(self.txtPlayerWins.toPlainText()))
 
-        self.hide()
 
+        self.hide()
         self.playerList.btnAddPlayer.show()
         self.playerList.btnEditPlayer.show()
         self.playerList.browser.show()
