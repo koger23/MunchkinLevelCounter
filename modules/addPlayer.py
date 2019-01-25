@@ -288,9 +288,7 @@ class EditPlayer(AddPlayer):
         self.playerList.mainWindow.btnBack.show()
         self.playerList.mainWindow.btnStartGame.show()
 
-        self.playerList.mainWindow.setMaximumSize(600, 800)
-        self.playerList.mainWindow.setMinimumSize(600, 800)
-        self.playerList.mainWindow.resize(600, 800)
+        self.playerList.setMaximumSize(600, 800)
 
         self.playerList.browser.refreshView()
 
