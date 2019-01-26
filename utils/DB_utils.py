@@ -98,6 +98,10 @@ class Database(object):
 
         return roundsPlayed[0][0]
 
+    def saveWins(self, id, wins):
+
+        self.cur.execute("UPDATE players SET wins WHERE id=?", (id, wins,))
+
     def __del__(self):
         self.conn.close()
 

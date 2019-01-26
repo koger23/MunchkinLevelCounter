@@ -16,6 +16,7 @@ class Player(object):
         self.id = None
         self.isAlive = 1
         self.rounds = 1
+        self.winner = False
 
         if self.isAlive == 0:
             self.avatar = r"\images\dead.png"
@@ -74,6 +75,11 @@ class Player(object):
         if self.currentLevel > 10:
             self.currentLevel = 10
 
+        if self.currentLevel == 10 and self.winner is False:
+            self.wins += 1
+            self.winner = True
+            self.saveWin()
+
     def increaseBonus(self):
 
         self.currentBonus += 1
@@ -104,6 +110,11 @@ class Player(object):
     def increaseWins(self):
 
         self.wins += 1
+
+    def saveWin(self):
+
+        dbu.Database().update(self.id, self.name, self.games, self.wins, self.rounds)
+
 
     def die(self):
 
