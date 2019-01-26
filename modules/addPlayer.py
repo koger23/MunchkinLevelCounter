@@ -161,7 +161,7 @@ class AddPlayer(QWidget):
             msg3.exec_()
             return
 
-        dbu.Database().addPlayer(name, gender, gamesPlayed, wins)
+        dbu.Database().addPlayer(name, gender, gamesPlayed, wins, 0)
 
 
         self.hide()
@@ -274,10 +274,11 @@ class EditPlayer(AddPlayer):
                                         self.games,
                                         self.wins)[0][0]
 
-        dbu.Database().update(id, self.txtPlayerName.toPlainText(),
+        dbu.Database().updateAll(id, self.txtPlayerName.toPlainText(),
                               str(gender),
                               int(self.txtPlayerGames.toPlainText()),
-                              int(self.txtPlayerWins.toPlainText()))
+                              int(self.txtPlayerWins.toPlainText()),
+                              int(self.playerList.browser.currentPlayer.rounds))
 
 
         self.hide()

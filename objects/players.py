@@ -24,10 +24,18 @@ class Player(object):
 
         self.setId()
 
+    def setRounds(self, rounds):
+
+        self.rounds = rounds
 
     def setId(self):
 
+
         self.id = dbu.Database().getPlayerId(self.name, self.games, self.wins)
+        if self.id:
+            self.id = self.id[0][0]
+        print(self.id)
+
 
     def setName(self, name):
 
@@ -62,6 +70,9 @@ class Player(object):
     def increaseLevel(self):
 
         self.currentLevel += 1
+
+        if self.currentLevel > 10:
+            self.currentLevel = 10
 
     def increaseBonus(self):
 

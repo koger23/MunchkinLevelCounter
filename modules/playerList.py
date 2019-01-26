@@ -192,7 +192,9 @@ class PlayerBrowser(QListWidget):
             playerObj.setGender(player[0][2])
             playerObj.setGames(player[0][3])
             playerObj.setWins(player[0][4])
+            playerObj.setRounds(player[0][5])
             playerObj.setAvatar()
+            playerObj.setId()
 
             # create list item
             self.items = PlayerItem(playerObj, self)

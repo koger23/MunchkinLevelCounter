@@ -22,6 +22,7 @@ class LevelCounter(QMainWindow):
         baseLayout = QHBoxLayout(self.centralWidget)
         self.setCentralWidget(self.centralWidget)
 
+
         mainLayout = QVBoxLayout()
         baseLayout.addLayout(mainLayout)
 
@@ -30,7 +31,7 @@ class LevelCounter(QMainWindow):
         mainLayout.addWidget(self.mainMenu)
         self.mainMenu.btnPlayers.clicked.connect(self.showPlayerList)
         self.mainMenu.btnNewGame.clicked.connect(self.newGame)
-        self.mainMenu.setVisible(True)
+        self.mainMenu.show()
 
         # Player List
         self.playerList = playerList.PlayerList(self)

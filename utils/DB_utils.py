@@ -18,15 +18,16 @@ class Database(object):
                          "name text, "
                          "gender text, "
                          "gamesplayed integer, "
-                         "wins integer)"
+                         "wins integer,"
+                         "roundsplayed integer)"
                          )
 
         self.conn.commit()
 
 
-    def addPlayer(self, name, gender, gamesplayed, wins):
+    def addPlayer(self, name, gender, gamesplayed, wins, roundsplayed=0):
 
-        self.cur.execute("INSERT INTO players VALUES (NULL, ?, ?, ?, ?)", (name, gender, gamesplayed, wins, ))
+        self.cur.execute("INSERT INTO players VALUES (NULL, ?, ?, ?, ?, ?)", (name, gender, gamesplayed, wins, roundsplayed,))
 
         self.conn.commit()
         print("Player added")
@@ -41,9 +42,15 @@ class Database(object):
 
         return rows
 
-    def update(self, id, name, gender, gamesplayed, wins):
+    def updateAll(self, id, name="", gender="", gamesplayed="", wins="", roundsplayed=""):
 
-        self.cur.execute("UPDATE players SET name=?, gender=?, gamesplayed=?, wins=? WHERE id=?", (name, gender, gamesplayed, wins, id,))
+        self.cur.execute("UPDATE players SET name=?, gender=?, gamesplayed=?, wins=?, roundsplayed=? WHERE id=?", (name, gender, gamesplayed, wins, roundsplayed, id,))
+
+        self.conn.commit()
+
+    def update(self, id, name="", gamesplayed="", wins="", roundsplayed=""):
+
+        self.cur.execute("UPDATE players SET name=?, gamesplayed=?, wins=?, roundsplayed=? WHERE id=?", (name, gamesplayed, wins, roundsplayed, id,))
 
         self.conn.commit()
 
@@ -53,9 +60,9 @@ class Database(object):
         rows = self.cur.fetchall()
         return rows
 
-    def removePlayer(self, name, rounds, wins):
+    def removePlayer(self, name, gamesplayed, wins):
 
-        self.cur.execute("DELETE FROM players WHERE name=? AND gamesplayed=? AND wins=?", (name, rounds, wins,))
+        self.cur.execute("DELETE FROM players WHERE name=? AND gamesplayed=? AND wins=?", (name, gamesplayed, wins,))
 
         self.conn.commit()
 
@@ -67,9 +74,9 @@ class Database(object):
 
         return rows
 
-    def getPlayerId(self, name, rounds, wins):
+    def getPlayerId(self, name, gamesplayed, wins):
 
-        self.cur.execute("SELECT id FROM players WHERE name=? AND gamesplayed=? AND wins=?", (name, rounds, wins,))
+        self.cur.execute("SELECT id FROM players WHERE name=? AND gamesplayed=? AND wins=?", (name, gamesplayed, wins,))
 
         rows = self.cur.fetchall()
 
@@ -82,6 +89,14 @@ class Database(object):
         names = self.cur.fetchall()
 
         return names
+
+    def getRounds(self, id):
+
+        self.cur.execute("SELECT roundsplayed FROM players WHERE id=?", (id,))
+
+        roundsPlayed = self.cur.fetchall()
+
+        return roundsPlayed[0][0]
 
     def __del__(self):
         self.conn.close()
