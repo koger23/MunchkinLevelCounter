@@ -34,9 +34,9 @@ class MainMenu(QWidget):
         # btnPlayers.clicked.connect(self.ShowPlayerList)
 
         # Add players
-        btnAbout = QPushButton("ABOUT")
-        btnAbout.setMinimumHeight(50)
-        mainLayout.addWidget(btnAbout)
+        self.btnAbout = QPushButton("ABOUT")
+        self.btnAbout.setMinimumHeight(50)
+        mainLayout.addWidget(self.btnAbout)
 
         # Add quit widget
         btnQuit = QPushButton("QUIT")

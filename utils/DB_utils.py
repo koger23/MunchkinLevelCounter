@@ -30,9 +30,6 @@ class Database(object):
         self.cur.execute("INSERT INTO players VALUES (NULL, ?, ?, ?, ?, ?)", (name, gender, gamesplayed, wins, roundsplayed,))
 
         self.conn.commit()
-        print("Player added")
-
-        print(self.view())
 
     def view(self):
 

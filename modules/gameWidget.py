@@ -138,7 +138,6 @@ class GameWidget(QWidget):
 
         self.game.increaseRounds()
         self.lblRounds.setText(str(self.lblRounds))
-        print(self.lblRounds)
         self.repaint()
 
     def timeWorker(self):

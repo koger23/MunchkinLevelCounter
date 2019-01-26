@@ -96,6 +96,17 @@ class PlayerList(QWidget):
     def increasePlayerLevel(self):
 
         self.browser.currentItem().playerObject.increaseLevel()
+
+        # stop timer when one of the player reached level 10
+
+        if self.mainWindow.timer.isAlive():
+
+            for i in range(self.browser.count()):
+
+                if self.browser.item(i).playerObject.currentLevel == 10:
+
+                    self.mainWindow.gameWidget.breaker = 1
+
         self.browser.repaint()
 
     def decreasePlayerLevel(self):
@@ -105,6 +116,7 @@ class PlayerList(QWidget):
 
     def increasePlayerRounds(self):
 
+        # increasing rounds number of all players by +1
         for i in range(self.browser.count()):
 
             self.browser.item(i).playerObject.increaseRounds()

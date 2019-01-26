@@ -5,7 +5,7 @@ import sys
 
 from PySide2.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QPushButton, QHBoxLayout
 from PySide2.QtGui import QFontDatabase
-from modules import playerList, mainMenu, quitWidget, gameWidget
+from modules import playerList, mainMenu, quitWidget, gameWidget, aboutWidget
 from objects import game
 import threading
 
@@ -38,13 +38,16 @@ class LevelCounter(QMainWindow):
         mainLayout.addWidget(self.playerList)
         self.playerList.hide()
 
+        # About Widget
+        self.aboutWidget = aboutWidget.About(self)
+
         # Game object to count rounds
         self.game = game.Game()
 
         # Game Widget
         self.gameWidget = gameWidget.GameWidget(self.game)
         baseLayout.addWidget(self.gameWidget)
-        self.gameWidget.setVisible(False)
+        self.gameWidget.hide()
 
 
         # Get on signals for buttons in Game
@@ -59,6 +62,7 @@ class LevelCounter(QMainWindow):
         self.gameWidget.btnDie.clicked.connect(self.playerList.diePlayer)
         self.gameWidget.btnGender.clicked.connect(self.playerList.changePlayerGender)
         self.gameWidget.btnThrow.clicked.connect(self.diceAction)
+        self.mainMenu.btnAbout.clicked.connect(self.about)
 
         # Navigation buttons
         self.btnBack = QPushButton("Back")
@@ -113,6 +117,9 @@ class LevelCounter(QMainWindow):
         self.btnBack.show()
         self.btnStartGame.show()
         self.playerList.show()
+        self.playerList.btnRemovePlayer.show()
+        self.playerList.btnEditPlayer.show()
+        self.playerList.btnAddPlayer.show()
         self.playerList.browser.refreshView()
 
     def startGame(self):
@@ -164,6 +171,17 @@ class LevelCounter(QMainWindow):
         if self.timer.isAlive():
 
             self.gameWidget.breaker = 1
+
+    def about(self):
+
+        self.aboutWidget.show()
+        self.playerList.btnRemovePlayer.hide()
+        self.playerList.btnEditPlayer.hide()
+        self.playerList.btnAddPlayer.hide()
+        self.gameWidget.hide()
+        self.btnStartGame.hide()
+        self.btnBack.hide()
+        self.btnQuit.hide()
 
 
     def applyStyle(self):

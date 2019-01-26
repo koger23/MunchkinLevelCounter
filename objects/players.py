@@ -35,7 +35,6 @@ class Player(object):
         self.id = dbu.Database().getPlayerId(self.name, self.games, self.wins)
         if self.id:
             self.id = self.id[0][0]
-        print(self.id)
 
 
     def setName(self, name):
