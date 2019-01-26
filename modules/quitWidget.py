@@ -48,7 +48,7 @@ class QuitWidget(QWidget):
                     print(int(i.rounds) + int(self.mainWindow.gameWidget.game.rounds))
                     print("--")
 
-                    rounds = int(i.rounds) + int(self.mainWindow.gameWidget.game.rounds)
+                    rounds = int(i.rounds) + int(self.mainWindow.gameWidget.game.rounds - 1)
 
                     print("rounds: " + str(rounds))
 

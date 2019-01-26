@@ -105,6 +105,24 @@ class Database(object):
     def __del__(self):
         self.conn.close()
 
+class SavedGameDB(object):
+
+    def __init__(self):
+
+        self.conn = sqlite3.connect("munchkinSavedGame.db")
+
+        self.cur = self.conn.cursor()
+
+        self.cur.execute("CREATE TABLE IF NOT EXISTS players (id INTEGER PRIMARY KEY, "
+                         "datetime text, "
+                         "gender text, "
+                         "rounds integer, "
+                         "player_ids text,"
+                         "player_genders text)"
+                         )
+
+        self.conn.commit()
+
 
 if __name__ == '__main__':
 
