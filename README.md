@@ -9,3 +9,10 @@ The user can:
 - save players
 - collect the statistics of the players
 - save games for later (soon)
+
+
+# Licences, Rights
+- The usage of this application is totally free
+- I do not get income for it
+- I do not own any rights
+- The used pictures were made by J. Kovalic
