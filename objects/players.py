@@ -1,4 +1,5 @@
 from utils import DB_utils as dbu
+import os
 
 
 class Player(object):
@@ -61,7 +62,9 @@ class Player(object):
         if path:
             self.avatar = path
         else:
-            self.avatar = r"Y:\Dropbox\Python\MunchkinLevelCounter\images\munchkin_" + self.gender + ".png"
+            defaultPath = os.path.realpath(__file__).replace("\objects\players.py", "/images")
+            imageName = "munchkin_" + self.gender + ".png"
+            self.avatar = os.path.join(defaultPath, imageName)
 
     def increaseRounds(self):
 
