@@ -12,9 +12,9 @@ class AddPlayer(QWidget):
 
         mainLayout = QHBoxLayout()
         mainLayout.setContentsMargins(0, 0, 0, 0)
-        self.setMaximumSize(600, 250)
-        self.setMinimumSize(600, 250)
-        self.resize(600, 250)
+        # self.setMaximumSize(600, 270)
+        # self.setMinimumSize(600, 100)
+        # self.resize(600, 270)
         self.setLayout(mainLayout)
 
         baseLayout = QGridLayout()
@@ -36,6 +36,10 @@ class AddPlayer(QWidget):
         lblGamesWon = QLabel("Games won:")
         lblGamesWon.setObjectName("addPlayerLabels")
         baseLayout.addWidget(lblGamesWon, 3, 0)
+
+        lblPlayedRounds = QLabel("Rounds played:")
+        lblPlayedRounds.setObjectName("addPlayerLabels")
+        baseLayout.addWidget(lblPlayedRounds, 4, 0)
 
         # Text fields
         self.txtPlayerName = QTextEdit()
@@ -62,15 +66,21 @@ class AddPlayer(QWidget):
         baseLayout.addWidget(self.txtPlayerWins, 3, 1, 1, 2)
         self.txtPlayerWins.setFixedHeight(35)
 
+        self.txtPlayedRounds = QTextEdit("0")
+        self.txtPlayedRounds.setObjectName("addPlayer_txtField")
+        baseLayout.addWidget(self.txtPlayedRounds, 4, 1, 1, 2)
+        self.txtPlayedRounds.setFixedHeight(35)
+        self.txtPlayedRounds.setEnabled(False)
+
         # Buttons
         btnSavePlayer = QPushButton("Save")
         btnSavePlayer.setFixedHeight(50)
-        baseLayout.addWidget(btnSavePlayer, 4, 0)
+        baseLayout.addWidget(btnSavePlayer, 5, 0)
         btnSavePlayer.clicked.connect(self.savePlayer)
 
         btnCancel = QPushButton("Cancel")
         btnCancel.setFixedHeight(50)
-        baseLayout.addWidget(btnCancel, 4, 1)
+        baseLayout.addWidget(btnCancel, 5, 1)
         btnCancel.clicked.connect(self.cancel)
 
     def clearAll(self):
@@ -181,6 +191,7 @@ class EditPlayer(AddPlayer):
     def __init__(self, playerList, parent=None):
 
         super(EditPlayer, self).__init__(playerList, parent)
+        self.txtPlayedRounds.setEnabled(True)
 
     def getInputs(self):
 
@@ -189,10 +200,12 @@ class EditPlayer(AddPlayer):
         self.wins = str(self.playerList.browser.currentItem().playerObject.wins)
         self.games = str(self.playerList.browser.currentItem().playerObject.games)
         self.gender = self.playerList.browser.currentItem().playerObject.gender
+        self.rounds = str(self.playerList.browser.currentItem().playerObject.rounds)
 
         self.txtPlayerName.setText(self.name)
         self.txtPlayerWins.setText(self.wins)
         self.txtPlayerGames.setText(self.games)
+        self.txtPlayedRounds.setText(self.rounds)
 
         if self.gender == "male":
             self.rbtnMale.setChecked(True)
@@ -278,7 +291,7 @@ class EditPlayer(AddPlayer):
                               str(gender),
                               int(self.txtPlayerGames.toPlainText()),
                               int(self.txtPlayerWins.toPlainText()),
-                              int(self.playerList.browser.currentPlayer.rounds))
+                              int(self.txtPlayedRounds.toPlainText()))
 
 
         self.hide()
