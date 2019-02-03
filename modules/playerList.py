@@ -64,7 +64,7 @@ class PlayerList(QWidget):
         self.mainWindow.btnStartGame.hide()
         self.mainWindow.btnBack.hide()
 
-        self.setMaximumSize(600, 250)
+        self.setMaximumSize(600, 400)
 
         self.browser.refreshView()
 
@@ -79,7 +79,7 @@ class PlayerList(QWidget):
         self.mainWindow.btnStartGame.hide()
         self.mainWindow.btnBack.hide()
 
-        self.setMaximumSize(600, 250)
+        self.setMaximumSize(600, 400)
 
         self.browser.refreshView()
 
@@ -287,7 +287,7 @@ class MyDelegate(QStyledItemDelegate):
             levelRect = QRect(nameRect.right()+70, pixmapRect.top(), 100, 40)
             painter.drawText(levelRect, Qt.AlignHCenter | Qt.AlignVCenter, "Level")
             painter.setFont(self.fontPlayerTotalValue)
-            levelValRect = QRect(levelRect.left(), levelRect.bottom()+20, 100, 40)
+            levelValRect = QRect(levelRect.left(), levelRect.bottom()+20, 100, 55)
             painter.drawText(levelValRect, Qt.AlignHCenter | Qt.AlignVCenter, str(playerObject.currentLevel))
 
             # Player Bonus:
@@ -296,7 +296,7 @@ class MyDelegate(QStyledItemDelegate):
             bonusRect = QRect(levelRect.right()+50, pixmapRect.top(), 100, 40)
             painter.drawText(bonusRect, Qt.AlignHCenter | Qt.AlignVCenter, "Bonus")
             painter.setFont(self.fontPlayerTotalValue)
-            bonusValRect = QRect(levelRect.right()+50, levelRect.bottom()+20, 100, 40)
+            bonusValRect = QRect(levelRect.right()+50, levelRect.bottom()+20, 100, 55)
             painter.drawText(bonusValRect, Qt.AlignHCenter | Qt.AlignVCenter, str(playerObject.currentBonus))
 
             # Player Total:
@@ -305,35 +305,35 @@ class MyDelegate(QStyledItemDelegate):
             totalRect = QRect(bonusRect.right()+50, pixmapRect.top(), 100, 40)
             painter.drawText(totalRect, Qt.AlignHCenter | Qt.AlignVCenter, "Total")
             painter.setFont(self.fontPlayerTotalValue)
-            totalValRect = QRect(bonusRect.right()+50, bonusRect.bottom()+20, 100, 40)
+            totalValRect = QRect(bonusRect.right()+50, bonusRect.bottom()+20, 100, 55)
             painter.drawText(totalValRect, Qt.AlignHCenter | Qt.AlignVCenter, str(playerObject.currentLevel + playerObject.currentBonus))
 
         # Player bonus
         painter.setFont(self.fontPlayerLevel)
-        bonusRect = QRect(nameRect.x(), pixmapRect.top()+40, 70, 20)
+        bonusRect = QRect(nameRect.x(), pixmapRect.top()+40, 80, 20)
         painter.drawText(bonusRect, Qt.AlignLeft | Qt.AlignVCenter, "Gender:")
-        bonusValRect = QRect(bonusRect.right()+5, pixmapRect.top()+40, 100, 20)
+        bonusValRect = QRect(bonusRect.right()+5, pixmapRect.top()+40, 120, 20)
         painter.drawText(bonusValRect, Qt.AlignLeft | Qt.AlignVCenter, str(playerObject.gender))
 
         # Player played games
         painter.setFont(self.fontPlayerLevel)
-        roundsRect = QRect(nameRect.x(), bonusRect.bottom(), 70, 20)
+        roundsRect = QRect(nameRect.x(), bonusRect.bottom(), 80, 20)
         painter.drawText(roundsRect, Qt.AlignLeft | Qt.AlignVCenter, "Games:")
-        roundsValRect = QRect(nameRect.left(), bonusRect.bottom(), 100, 20)
+        roundsValRect = QRect(nameRect.left(), bonusRect.bottom(), 120, 20)
         painter.drawText(roundsValRect, Qt.AlignRight | Qt.AlignVCenter, str(playerObject.games))
 
         # Player wins
         painter.setFont(self.fontPlayerLevel)
-        winsRect = QRect(nameRect.x(), roundsRect.bottom(), 70, 20)
+        winsRect = QRect(nameRect.x(), roundsRect.bottom(), 80, 20)
         painter.drawText(winsRect, Qt.AlignLeft | Qt.AlignVCenter, "Wins:")
-        winsValRect = QRect(nameRect.left(), roundsRect.bottom(), 100, 20)
+        winsValRect = QRect(nameRect.left(), roundsRect.bottom(), 120, 20)
         painter.drawText(winsValRect, Qt.AlignRight | Qt.AlignVCenter, str(playerObject.wins))
 
         # Player played Rounds
         painter.setFont(self.fontPlayerLevel)
-        roundsRect = QRect(nameRect.x(), winsRect.bottom(), 70, 20)
+        roundsRect = QRect(nameRect.x(), winsRect.bottom(), 80, 20)
         painter.drawText(roundsRect, Qt.AlignLeft | Qt.AlignVCenter, "Rounds:")
-        roundsValRect = QRect(nameRect.left(), winsRect.bottom(), 100, 20)
+        roundsValRect = QRect(nameRect.left(), winsRect.bottom(), 120, 20)
         painter.drawText(roundsValRect, Qt.AlignRight | Qt.AlignVCenter, str(playerObject.rounds))
 
 if __name__ == '__main__':

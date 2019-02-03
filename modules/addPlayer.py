@@ -182,7 +182,7 @@ class AddPlayer(QWidget):
         self.playerList.mainWindow.btnBack.show()
         self.playerList.mainWindow.btnStartGame.show()
 
-        self.playerList.setMaximumSize(600, 800)
+        self.playerList.setMaximumSize(600, 850)
         self.playerList.browser.refreshView()
 
 
